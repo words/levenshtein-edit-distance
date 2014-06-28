@@ -1,0 +1,16 @@
+{
+  "name": "levenshtein-distance",
+  "version": "0.0.1",
+  "description": "Levenshtein edit distance. No cruft. Real fast.",
+  "keywords": [
+    "vladimir",
+    "levenshtein",
+    "edit",
+    "distance"
+  ],
+  "repository": "wooorm/levenshtein-distance",
+  "license": "MIT",
+  "scripts" : [
+    "index.js"
+  ]
+}
