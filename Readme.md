@@ -1,6 +1,6 @@
-# levenshtein-distance [![Build Status](https://travis-ci.org/wooorm/levenshtein-distance.svg?branch=master)](https://travis-ci.org/wooorm/levenshtein-distance) [![Coverage Status](https://img.shields.io/coveralls/wooorm/levenshtein-distance.svg)](https://coveralls.io/r/wooorm/levenshtein-distance?branch=master)
+# levenshtein-edit-distance [![Build Status](https://travis-ci.org/wooorm/levenshtein-edit-distance.svg?branch=master)](https://travis-ci.org/wooorm/levenshtein-edit-distance) [![Coverage Status](https://img.shields.io/coveralls/wooorm/levenshtein-edit-distance.svg)](https://coveralls.io/r/wooorm/levenshtein-edit-distance?branch=master)
 
-[![browser support](https://ci.testling.com/wooorm/levenshtein-distance.png) ](https://ci.testling.com/wooorm/levenshtein-distance)
+[![browser support](https://ci.testling.com/wooorm/levenshtein-edit-distance.png) ](https://ci.testling.com/wooorm/levenshtein-edit-distance)
 
 ---
 
@@ -10,18 +10,18 @@
 
 NPM:
 ```sh
-$ npm install levenshtein-distance
+$ npm install levenshtein-edit-distance
 ```
 
 Component.js:
 ```sh
-$ component install wooorm/levenshtein-distance
+$ component install wooorm/levenshtein-edit-distance
 ```
 
 ## Usage
 
 ```js
-var levenshteinDistance = require('levenshtein-distance');
+var levenshteinDistance = require('levenshtein-edit-distance');
 
 levenshteinDistance('levenshtein', 'levenshtein'); // 0
 levenshteinDistance('sitting', 'kitten'); // 3
@@ -53,7 +53,7 @@ $ npm run benchmark
 ```
 
 ```
-         levenshtein-distance — this module
+         levenshtein-edit-distance — this module
 313 op/s » op/s * 1,000
 
          fast-levenshtein — “fast”... pff ;)

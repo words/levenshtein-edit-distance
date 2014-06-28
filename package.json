@@ -1,5 +1,5 @@
 {
-  "name": "levenshtein-distance",
+  "name": "levenshtein-edit-distance",
   "version": "0.0.1",
   "description": "Levenshtein edit distance. No cruft. Real fast.",
   "keywords": [
@@ -20,25 +20,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wooorm/levenshtein-distance.git"
+    "url": "https://github.com/wooorm/levenshtein-edit-distance.git"
   },
   "scripts": {
-    "test": "node_modules/.bin/_mocha --reporter spec --check-leaks -u exports spec/levenshtein-distance.spec.js",
-    "test-travis": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec --check-leaks -u exports spec/levenshtein-distance.spec.js",
+    "test": "node_modules/.bin/_mocha --reporter spec --check-leaks -u exports spec/levenshtein-edit-distance.spec.js",
+    "test-travis": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec --check-leaks -u exports spec/levenshtein-edit-distance.spec.js",
     "lint": "npm run lint-api && npm run lint-test && npm run lint-style && npm run lint-benchmark",
     "lint-api": "node_modules/.bin/eslint index.js --env node --env browser --rule 'quotes: [2, single], no-cond-assign: false'",
-    "lint-test": "node_modules/.bin/eslint spec/levenshtein-distance.spec.js --env node --env mocha --rule 'quotes: [2, single], no-loop-func: false'",
+    "lint-test": "node_modules/.bin/eslint spec/levenshtein-edit-distance.spec.js --env node --env mocha --rule 'quotes: [2, single], no-loop-func: false'",
     "lint-benchmark": "node_modules/.bin/eslint benchmark/index.js --env node --global suite,set,bench --rule 'quotes: [2, single]'",
-    "lint-style": "node_modules/.bin/jscs index.js spec/levenshtein-distance.spec.js benchmark/index.js --reporter=inline",
+    "lint-style": "node_modules/.bin/jscs index.js spec/levenshtein-edit-distance.spec.js benchmark/index.js --reporter=inline",
     "prepublish": "npm run build-browser",
-    "build-browser": "browserify spec/levenshtein-distance.spec.js -o spec/browser.spec.js",
-    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -- spec/levenshtein-distance.spec.js",
+    "build-browser": "browserify spec/levenshtein-edit-distance.spec.js -o spec/browser.spec.js",
+    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -- spec/levenshtein-edit-distance.spec.js",
     "install-benchmark": "npm install natural fast-levenshtein levenshtein",
     "benchmark": "node_modules/.bin/matcha",
     "make": "npm run build-browser && npm run lint && npm run coverage"
   },
   "testling": {
-    "files": "spec/levenshtein-distance.spec.js",
+    "files": "spec/levenshtein-edit-distance.spec.js",
     "harness": "mocha",
     "browsers": [
       "iexplore/latest",
