@@ -1,12 +1,14 @@
 'use strict';
 
 function levenshtein(value, alternative) {
-    var row, rowIterator, columnIterator,
-        character, previous, current, length, alternativeLength;
+    var previousRow, previousRowIterator, columnIterator,
+        character, next, current, length, alternativeLength, temporary;
 
+    /* Convert both values to string. */
     value = String(value);
     alternative = String(alternative);
 
+    /* Basic cases. */
     if (value === alternative) {
         return 0;
     }
@@ -22,38 +24,49 @@ function levenshtein(value, alternative) {
         return length;
     }
 
-    row = [];
+    /* Initialise the previous row, this just creates an array from 0..N */
+    previousRow = [];
+    previousRowIterator = -1;
 
-    rowIterator = -1;
-
-    while (++rowIterator <= alternativeLength) {
-        row[rowIterator] = rowIterator;
+    while (++previousRowIterator <= alternativeLength) {
+        previousRow[previousRowIterator] = previousRowIterator;
     }
 
-    rowIterator = -1;
+    previousRowIterator = -1;
 
-    while (++rowIterator < length) {
-        character = value.charAt(rowIterator);
-        previous = rowIterator + 1;
+    while (++previousRowIterator < length) {
+        character = value.charAt(previousRowIterator);
+        next = previousRowIterator + 1;
         columnIterator = -1;
 
         while (++columnIterator < alternativeLength) {
-            current = Math.min(
-                row[columnIterator] + (
-                    character === alternative.charAt(columnIterator) ? 0 : 1
-                ),
-                previous + 1,
-                row[columnIterator + 1] + 1
-            );
+            current = next;
 
-            row[columnIterator] = previous;
-            previous = current;
+            next = previousRow[columnIterator];
+
+            if (character !== alternative.charAt(columnIterator)) {
+                next += 1;
+            }
+
+            temporary = current + 1;
+
+            if (next > temporary) {
+                next = temporary;
+            }
+
+            temporary = previousRow[columnIterator + 1] + 1;
+
+            if (next > temporary) {
+                next = temporary;
+            }
+
+            previousRow[columnIterator] = current;
         }
 
-        row[alternativeLength] = previous;
+        previousRow[alternativeLength] = next;
     }
 
-    return previous;
+    return next;
 }
 
 module.exports = levenshtein;
