@@ -2,7 +2,7 @@
 
 /* eslint-disable no-cond-assign */
 
-var distance, source, fastLevenshtein, natural, Levenshtein;
+var distance, source, fastLevenshtein, natural, Levenshtein, LevenshteinDeltas, levenshteinComponent;
 
 distance = require('..');
 
@@ -10,6 +10,8 @@ try {
     fastLevenshtein = require('fast-levenshtein').get;
     Levenshtein = require('levenshtein');
     natural = require('natural').LevenshteinDistance;
+    LevenshteinDeltas = require('levenshtein-deltas').Lev;
+    levenshteinComponent = require('levenshtein-component');
 } catch (error) {
     throw new Error(
         '\u001B[0;31m' +
@@ -140,7 +142,7 @@ suite('levenshtein-distance — this module', function () {
     });
 });
 
-suite('fast-levenshtein — “fast”... pff ;)', function () {
+suite('fast-levenshtein', function () {
     bench('op/s * 1,000', function (next) {
         var iterator = -1,
             previousValue = '',
@@ -148,6 +150,36 @@ suite('fast-levenshtein — “fast”... pff ;)', function () {
 
         while (value = source[++iterator]) {
             fastLevenshtein(previousValue, value);
+            previousValue = value;
+        }
+
+        next();
+    });
+});
+
+suite('levenshtein-component', function () {
+    bench('op/s * 1,000', function (next) {
+        var iterator = -1,
+            previousValue = '',
+            value;
+
+        while (value = source[++iterator]) {
+            levenshteinComponent(previousValue, value);
+            previousValue = value;
+        }
+
+        next();
+    });
+});
+
+suite('levenshtein-deltas', function () {
+    bench('op/s * 1,000', function (next) {
+        var iterator = -1,
+            previousValue = '',
+            value;
+
+        while (value = source[++iterator]) {
+            new LevenshteinDeltas(previousValue, value).distance()
             previousValue = value;
         }
 
