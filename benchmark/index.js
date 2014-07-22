@@ -2,7 +2,8 @@
 
 /* eslint-disable no-cond-assign */
 
-var distance, source, fastLevenshtein, natural, Levenshtein, LevenshteinDeltas, levenshteinComponent;
+var distance, source, fastLevenshtein, natural, Levenshtein,
+    LevenshteinDeltas, levenshteinComponent;
 
 distance = require('..');
 
@@ -179,7 +180,7 @@ suite('levenshtein-deltas', function () {
             value;
 
         while (value = source[++iterator]) {
-            new LevenshteinDeltas(previousValue, value).distance()
+            new LevenshteinDeltas(previousValue, value).distance();
             previousValue = value;
         }
 
