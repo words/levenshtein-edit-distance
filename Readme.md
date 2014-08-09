@@ -37,6 +37,7 @@ levenshteinDistance("aarrgh", "aargh") === levenshteinDistance("aargh", "aarrgh"
 
 ## Other Levenshtein libraries
 
+- [sindresorhus/leven](https://github.com/sindresorhus/leven) — Supports a CLI, currently the fastest (I'll push an improvement soon);
 - [hiddentao/fast-levenshtein](http://github.com/hiddentao/fast-levenshtein) — Supports async functionality;
 - [NaturalNode/natural](http://github.com/NaturalNode/natural) — Supports settings weight of substitutions, insertions, and deletions.
 - [gf3/Levenshtein](http://github.com/gf3/Levenshtein) — Supports inspecting the matrix.
@@ -55,23 +56,26 @@ $ npm run benchmark
 ```
 
 ```
-             levenshtein-distance — this module
-  1,223 op/s » op/s * 1,000
+             levenshtein-edit-distance — this module
+  1,079 op/s » op/s * 1,000
+
+             Leven — fast.
+  1,576 op/s » op/s * 1,000
 
              fast-levenshtein
-  1,209 op/s » op/s * 1,000
+  1,073 op/s » op/s * 1,000
 
              levenshtein-component
-    330 op/s » op/s * 1,000
+    309 op/s » op/s * 1,000
 
              levenshtein-deltas
-    244 op/s » op/s * 1,000
+    160 op/s » op/s * 1,000
 
              natural — to be fair, it offers more options
-    208 op/s » op/s * 1,000
+    185 op/s » op/s * 1,000
 
              Levenshtein — to be fair, it lets you inspect a matrix
-    134 op/s » op/s * 1,000
+    135 op/s » op/s * 1,000
 ```
 
 ## License

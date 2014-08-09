@@ -3,7 +3,7 @@
 /* eslint-disable no-cond-assign */
 
 var distance, source, fastLevenshtein, natural, Levenshtein,
-    LevenshteinDeltas, levenshteinComponent;
+    LevenshteinDeltas, levenshteinComponent, leven;
 
 distance = require('..');
 
@@ -13,6 +13,7 @@ try {
     natural = require('natural').LevenshteinDistance;
     LevenshteinDeltas = require('levenshtein-deltas').Lev;
     levenshteinComponent = require('levenshtein-component');
+    leven = require('leven');
 } catch (error) {
     throw new Error(
         '\u001B[0;31m' +
@@ -128,7 +129,7 @@ source = Array(11).join([
     'abattoirs'
 ].join('|')).split('|');
 
-suite('levenshtein-distance — this module', function () {
+suite('levenshtein-edit-distance — this module', function () {
     bench('op/s * 1,000', function (next) {
         var iterator = -1,
             previousValue = '',
@@ -136,6 +137,21 @@ suite('levenshtein-distance — this module', function () {
 
         while (value = source[++iterator]) {
             distance(previousValue, value);
+            previousValue = value;
+        }
+
+        next();
+    });
+});
+
+suite('Leven — fast.', function () {
+    bench('op/s * 1,000', function (next) {
+        var iterator = -1,
+            previousValue = '',
+            value;
+
+        while (value = source[++iterator]) {
+            leven(previousValue, value);
             previousValue = value;
         }
 
@@ -219,3 +235,5 @@ suite('Levenshtein — to be fair, it lets you inspect a matrix', function () {
         next();
     });
 });
+
+/* eslint-disable no-new */
