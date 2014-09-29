@@ -1,6 +1,13 @@
-language: "node_js"
-script: "npm run-script test-travis"
+language: node_js
+script: npm run-script test-travis
 node_js:
-  - "0.10"
-  - "0.11"
-after_script: "npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls"
+- '0.10'
+- '0.11'
+after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
+deploy:
+  provider: npm
+  email: tituswormer@gmail.com
+  api_key:
+    secure: T/hBLA976a6hInKuWrUVtcfnVkN+gjUaseBSot1mWz+cuoPA2b/GHtIQOeVIksFB7Jxczu1YS1Pki6kidkDxTyRgfu0rUDKbRwytfr3NoztS9T85EdkZFf3YaUDkTdSneVz1mZY/1WxFWg1hOcbpb9bemo2tCnxedCI/I4l6iTE=
+  on:
+    repo: wooorm/levenshtein-edit-distance
