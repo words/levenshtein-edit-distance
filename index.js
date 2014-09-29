@@ -1,72 +1,66 @@
-'use strict';
+var cache,
+    codes;
 
-function levenshtein(value, alternative) {
-    var previousRow, previousRowIterator, columnIterator,
-        character, next, current, length, alternativeLength, temporary;
+cache = [];
+codes = [];
 
-    /* Convert both values to string. */
-    value = String(value);
-    alternative = String(alternative);
+function levenshtein(value, other) {
+    var length,
+        lengthOther,
+        code,
+        result,
+        distance,
+        distanceOther,
+        index,
+        indexOther;
 
-    /* Basic cases. */
-    if (value === alternative) {
+    if (value === other) {
         return 0;
     }
 
     length = value.length;
-    alternativeLength = alternative.length;
+    lengthOther = other.length;
 
-    if (!length) {
-        return alternativeLength;
+    if (length === 0) {
+        return lengthOther;
     }
 
-    if (!alternativeLength) {
+    if (lengthOther === 0) {
         return length;
     }
 
-    /* Initialise the previous row, this just creates an array from 0..N */
-    previousRow = [];
-    previousRowIterator = -1;
+    index = 0;
 
-    while (++previousRowIterator <= alternativeLength) {
-        previousRow[previousRowIterator] = previousRowIterator;
+    while (index < length) {
+        codes[index] = value.charCodeAt(index);
+        cache[index] = ++index;
     }
 
-    previousRowIterator = -1;
+    indexOther = 0;
 
-    while (++previousRowIterator < length) {
-        character = value.charAt(previousRowIterator);
-        next = previousRowIterator + 1;
-        columnIterator = -1;
+    while (indexOther < lengthOther) {
+        code = other.charCodeAt(indexOther);
 
-        while (++columnIterator < alternativeLength) {
-            current = next;
+        result = distance = indexOther++;
 
-            next = previousRow[columnIterator];
+        index = -1;
 
-            if (character !== alternative.charAt(columnIterator)) {
-                next += 1;
-            }
+        while (++index < length) {
+            distanceOther = code === codes[index] ? distance : distance + 1;
 
-            temporary = current + 1;
+            distance = cache[index];
 
-            if (next > temporary) {
-                next = temporary;
-            }
-
-            temporary = previousRow[columnIterator + 1] + 1;
-
-            if (next > temporary) {
-                next = temporary;
-            }
-
-            previousRow[columnIterator] = current;
+            cache[index] = result = distance > result
+                ? distanceOther > result
+                    ? result + 1
+                    : distanceOther
+                : distanceOther > distance
+                    ? distance + 1
+                    : distanceOther;
         }
-
-        previousRow[alternativeLength] = next;
     }
 
-    return next;
+    return result;
 }
 
 module.exports = levenshtein;
