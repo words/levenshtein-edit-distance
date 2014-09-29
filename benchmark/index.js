@@ -3,8 +3,17 @@
 /* eslint-disable no-cond-assign */
 /* eslint-disable no-new */
 
-var distance, source, fastLevenshtein, natural, Levenshtein,
-    LevenshteinDeltas, levenshteinComponent, leven;
+/**
+ * Dependencies.
+ */
+
+var distance,
+    fastLevenshtein,
+    natural,
+    Levenshtein,
+    LevenshteinDeltas,
+    levenshteinComponent,
+    leven;
 
 distance = require('..');
 
@@ -16,7 +25,7 @@ try {
     levenshteinComponent = require('levenshtein-component');
     leven = require('leven');
 } catch (error) {
-    throw new Error(
+    console.log(
         '\u001B[0;31m' +
         'The libraries needed by this benchmark could not be found. ' +
         'Please execute:\n' +
@@ -25,8 +34,17 @@ try {
     );
 }
 
-/* The first 100 words from Letterpress: https://github.com/atebits/Words */
-source = Array(11).join([
+/**
+ * Fixtures: 1000 words.
+ *
+ * Source:
+ *   https://github.com/atebits/Words
+ */
+
+var fixtures;
+
+/* The first 100 words from Letterpress:  */
+fixtures = Array(11).join([
     'aa',
     'aah',
     'aahed',
@@ -135,63 +153,77 @@ function benchAll(callback) {
         prev,
         value;
 
-    index = source.length;
-    value = source[0];
+    index = fixtures.length;
+    value = fixtures[0];
 
     while (index--) {
         prev = value;
-        value = source[index];
+        value = fixtures[index];
         callback(value, prev);
     }
 }
 
-suite('Levenshtein — to be fair, it lets you inspect a matrix', function () {
-    bench('op/s * 1,000', function () {
-        benchAll(function (value, other) {
-            new Levenshtein(value, other);
-        });
-    });
-});
+if (Levenshtein) {
+    suite('Levenshtein — to be fair, it lets you inspect a matrix',
+        function () {
+            bench('op/s * 1,000', function () {
+                benchAll(function (value, other) {
+                    new Levenshtein(value, other);
+                });
+            });
+        }
+    );
+}
 
-suite('natural — to be fair, it offers more options', function () {
-    bench('op/s * 1,000', function () {
-        benchAll(function (value, other) {
-            natural(value, other);
+if (natural) {
+    suite('natural — to be fair, it offers more options', function () {
+        bench('op/s * 1,000', function () {
+            benchAll(function (value, other) {
+                natural(value, other);
+            });
         });
     });
-});
+}
 
-suite('levenshtein-deltas', function () {
-    bench('op/s * 1,000', function () {
-        benchAll(function (value, other) {
-            new LevenshteinDeltas(value, other).distance();
+if (LevenshteinDeltas) {
+    suite('levenshtein-deltas', function () {
+        bench('op/s * 1,000', function () {
+            benchAll(function (value, other) {
+                new LevenshteinDeltas(value, other).distance();
+            });
         });
     });
-});
+}
 
-suite('levenshtein-component', function () {
-    bench('op/s * 1,000', function () {
-        benchAll(function (value, other) {
-            levenshteinComponent(value, other);
+if (levenshteinComponent) {
+    suite('levenshtein-component', function () {
+        bench('op/s * 1,000', function () {
+            benchAll(function (value, other) {
+                levenshteinComponent(value, other);
+            });
         });
     });
-});
+}
 
-suite('fast-levenshtein', function () {
-    bench('op/s * 1,000', function () {
-        benchAll(function (value, other) {
-            fastLevenshtein(value, other);
+if (fastLevenshtein) {
+    suite('fast-levenshtein', function () {
+        bench('op/s * 1,000', function () {
+            benchAll(function (value, other) {
+                fastLevenshtein(value, other);
+            });
         });
     });
-});
+}
 
-suite('Leven — fast.', function () {
-    bench('op/s * 1,000', function () {
-        benchAll(function (value, other) {
-            leven(value, other);
+if (leven) {
+    suite('Leven — fast.', function () {
+        bench('op/s * 1,000', function () {
+            benchAll(function (value, other) {
+                leven(value, other);
+            });
         });
     });
-});
+}
 
 suite('levenshtein-edit-distance — this module', function () {
     bench('op/s * 1,000', function () {
