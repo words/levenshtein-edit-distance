@@ -4,14 +4,19 @@
 
 ## Installation
 
-NPM:
+npm:
 ```sh
 $ npm install levenshtein-edit-distance
 ```
 
-Component.js:
+Component:
 ```sh
 $ component install wooorm/levenshtein-edit-distance
+```
+
+Bower:
+```sh
+$ bower install levenshtein-edit-distance
 ```
 
 ## Usage
