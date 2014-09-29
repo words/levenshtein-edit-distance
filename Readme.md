@@ -75,4 +75,4 @@ $ npm run benchmark
 
 ## License
 
-  MIT
+MIT © Titus Wormer
