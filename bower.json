@@ -1,0 +1,30 @@
+{
+  "name": "levenshtein-edit-distance",
+  "main": "index.js",
+  "description": "Levenshtein edit distance. No cruft. Real fast.",
+  "license": "MIT",
+  "keywords": [
+    "vladimir",
+    "levenshtein",
+    "edit",
+    "distance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/levenshtein-edit-distance.git"
+  },
+  "authors": [
+    "Titus Wormer <tituswormer@gmail.com>"
+  ],
+  "ignore": [
+    ".*",
+    "*.log",
+    "*.md",
+    "component.json",
+    "package.json",
+    "coverage",
+    "node_modules",
+    "benchmark",
+    "spec"
+  ]
+}
