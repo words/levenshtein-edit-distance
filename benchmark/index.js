@@ -1,6 +1,7 @@
 'use strict';
 
 /* eslint-disable no-cond-assign */
+/* eslint-disable no-new */
 
 var distance, source, fastLevenshtein, natural, Levenshtein,
     LevenshteinDeltas, levenshteinComponent, leven;
@@ -129,111 +130,73 @@ source = Array(11).join([
     'abattoirs'
 ].join('|')).split('|');
 
-suite('levenshtein-edit-distance — this module', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            previousValue = '',
-            value;
+function benchAll(callback) {
+    var index,
+        prev,
+        value;
 
-        while (value = source[++iterator]) {
-            distance(previousValue, value);
-            previousValue = value;
-        }
+    index = source.length;
+    value = source[0];
 
-        next();
-    });
-});
+    while (index--) {
+        prev = value;
+        value = source[index];
+        callback(value, prev);
+    }
+}
 
-suite('Leven — fast.', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            previousValue = '',
-            value;
-
-        while (value = source[++iterator]) {
-            leven(previousValue, value);
-            previousValue = value;
-        }
-
-        next();
-    });
-});
-
-suite('fast-levenshtein', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            previousValue = '',
-            value;
-
-        while (value = source[++iterator]) {
-            fastLevenshtein(previousValue, value);
-            previousValue = value;
-        }
-
-        next();
-    });
-});
-
-suite('levenshtein-component', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            previousValue = '',
-            value;
-
-        while (value = source[++iterator]) {
-            levenshteinComponent(previousValue, value);
-            previousValue = value;
-        }
-
-        next();
-    });
-});
-
-suite('levenshtein-deltas', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            previousValue = '',
-            value;
-
-        while (value = source[++iterator]) {
-            new LevenshteinDeltas(previousValue, value).distance();
-            previousValue = value;
-        }
-
-        next();
+suite('Levenshtein — to be fair, it lets you inspect a matrix', function () {
+    bench('op/s * 1,000', function () {
+        benchAll(function (value, other) {
+            new Levenshtein(value, other);
+        });
     });
 });
 
 suite('natural — to be fair, it offers more options', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            previousValue = '',
-            value;
-
-        while (value = source[++iterator]) {
-            natural(previousValue, value);
-            previousValue = value;
-        }
-
-        next();
+    bench('op/s * 1,000', function () {
+        benchAll(function (value, other) {
+            natural(value, other);
+        });
     });
 });
 
-/* eslint-disable no-new */
-
-suite('Levenshtein — to be fair, it lets you inspect a matrix', function () {
-    bench('op/s * 1,000', function (next) {
-        var iterator = -1,
-            previousValue = '',
-            value;
-
-        while (value = source[++iterator]) {
-            new Levenshtein(previousValue, value);
-            previousValue = value;
-        }
-
-        next();
+suite('levenshtein-deltas', function () {
+    bench('op/s * 1,000', function () {
+        benchAll(function (value, other) {
+            new LevenshteinDeltas(value, other).distance();
+        });
     });
 });
 
-/* eslint-disable no-new */
+suite('levenshtein-component', function () {
+    bench('op/s * 1,000', function () {
+        benchAll(function (value, other) {
+            levenshteinComponent(value, other);
+        });
+    });
+});
+
+suite('fast-levenshtein', function () {
+    bench('op/s * 1,000', function () {
+        benchAll(function (value, other) {
+            fastLevenshtein(value, other);
+        });
+    });
+});
+
+suite('Leven — fast.', function () {
+    bench('op/s * 1,000', function () {
+        benchAll(function (value, other) {
+            leven(value, other);
+        });
+    });
+});
+
+suite('levenshtein-edit-distance — this module', function () {
+    bench('op/s * 1,000', function () {
+        benchAll(function (value, other) {
+            distance(value, other);
+        });
+    });
+});
