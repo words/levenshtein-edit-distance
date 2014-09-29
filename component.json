@@ -2,6 +2,7 @@
   "name": "levenshtein-edit-distance",
   "version": "0.1.0",
   "description": "Levenshtein edit distance. No cruft. Real fast.",
+  "license": "MIT",
   "keywords": [
     "vladimir",
     "levenshtein",
@@ -9,7 +10,6 @@
     "distance"
   ],
   "repository": "wooorm/levenshtein-edit-distance",
-  "license": "MIT",
   "scripts" : [
     "index.js"
   ]

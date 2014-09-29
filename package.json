@@ -2,24 +2,24 @@
   "name": "levenshtein-edit-distance",
   "version": "0.1.0",
   "description": "Levenshtein edit distance. No cruft. Real fast.",
+  "license": "MIT",
   "keywords": [
     "vladimir",
     "levenshtein",
     "edit",
     "distance"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/levenshtein-edit-distance.git"
+  },
   "author": "Titus Wormer <tituswormer@gmail.com>",
-  "license": "MIT",
   "devDependencies": {
     "eslint": "^0.8.0",
     "istanbul": "^0.3.0",
     "jscs": "^1.6.0",
     "matcha": "^0.5.0",
     "mocha": "^1.20.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wooorm/levenshtein-edit-distance.git"
   },
   "scripts": {
     "test": "node_modules/.bin/_mocha --reporter spec --check-leaks -u exports spec/levenshtein-edit-distance.spec.js",
