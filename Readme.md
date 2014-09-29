@@ -46,36 +46,35 @@ levenshteinDistance("aarrgh", "aargh") === levenshteinDistance("aargh", "aarrgh"
 
 ## Benchmark
 
-On a MacBook Air, it runs about 1,223,000 op/s, which is marginally faster than [hiddentao/fast-levenshtein](http://github.com/hiddentao/fast-levenshtein), and loads faster than the other competition.
+On a MacBook Air, it runs about 1,915,000 op/s.
 
 Run the benchmark yourself:
 
 ```sh
-$ npm run install-benchmark # Just once of course.
 $ npm run benchmark
 ```
 
 ```
-             levenshtein-edit-distance — this module
-  1,079 op/s » op/s * 1,000
-
-             Leven — fast.
-  1,576 op/s » op/s * 1,000
-
-             fast-levenshtein
-  1,073 op/s » op/s * 1,000
-
-             levenshtein-component
-    309 op/s » op/s * 1,000
-
-             levenshtein-deltas
-    160 op/s » op/s * 1,000
+             Levenshtein — to be fair, it lets you inspect a matrix
+    129 op/s » op/s * 1,000
 
              natural — to be fair, it offers more options
-    185 op/s » op/s * 1,000
+    212 op/s » op/s * 1,000
 
-             Levenshtein — to be fair, it lets you inspect a matrix
-    135 op/s » op/s * 1,000
+             levenshtein-deltas
+    252 op/s » op/s * 1,000
+
+             levenshtein-component
+    335 op/s » op/s * 1,000
+
+             fast-levenshtein
+  1,251 op/s » op/s * 1,000
+
+             Leven — fast.
+  1,541 op/s » op/s * 1,000
+
+             levenshtein-edit-distance — this module
+  1,915 op/s » op/s * 1,000
 ```
 
 ## License
