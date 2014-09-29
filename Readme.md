@@ -33,12 +33,12 @@ levenshteinDistance('saturday', 'sunday'); // 3
 levenshteinDistance('DwAyNE', 'DUANE') !== levenshteinDistance('dwayne', 'DuAnE'); // true
 
 /* Order insensitive */
-levenshteinDistance("aarrgh", "aargh") === levenshteinDistance("aargh", "aarrgh"); // true
+levenshteinDistance('aarrgh', 'aargh') === levenshteinDistance('aargh', 'aarrgh'); // true
 ```
 
 ## Other Levenshtein libraries
 
-- [sindresorhus/leven](https://github.com/sindresorhus/leven) — Supports a CLI, currently the fastest (I'll push an improvement soon);
+- [sindresorhus/leven](https://github.com/sindresorhus/leven) — Supports a CLI;
 - [hiddentao/fast-levenshtein](http://github.com/hiddentao/fast-levenshtein) — Supports async functionality;
 - [NaturalNode/natural](http://github.com/NaturalNode/natural) — Supports settings weight of substitutions, insertions, and deletions.
 - [gf3/Levenshtein](http://github.com/gf3/Levenshtein) — Supports inspecting the matrix.
