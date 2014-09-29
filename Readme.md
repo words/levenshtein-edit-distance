@@ -1,9 +1,5 @@
 # levenshtein-edit-distance [![Build Status](https://travis-ci.org/wooorm/levenshtein-edit-distance.svg?branch=master)](https://travis-ci.org/wooorm/levenshtein-edit-distance) [![Coverage Status](https://img.shields.io/coveralls/wooorm/levenshtein-edit-distance.svg)](https://coveralls.io/r/wooorm/levenshtein-edit-distance?branch=master)
 
-[![browser support](https://ci.testling.com/wooorm/levenshtein-edit-distance.png) ](https://ci.testling.com/wooorm/levenshtein-edit-distance)
-
----
-
 [Levenshtein edit distance](http://en.wikipedia.org/wiki/Levenshtein_distance) (by [Vladimir Levenshtein](http://en.wikipedia.org/wiki/Vladimir_Levenshtein)). No cruft. Real fast.
 
 ## Installation
