@@ -7,7 +7,7 @@
 var levenshteinDistance,
     assert;
 
-levenshteinDistance = require('..');
+levenshteinDistance = require('./');
 assert = require('assert');
 
 /**
