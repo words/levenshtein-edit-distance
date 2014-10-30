@@ -1,4 +1,15 @@
 
+n.n.n / 2014-10-30
+==================
+
+ * Add flat badges to `Readme.md`
+ * Add `.eslintrc`
+ * Refactor to disallow space after object keys
+ * Move `benchmark/index.js` to `benchmark.js`
+ * Move `spec/levenshtein-edit-distance.spec.js` to `test.js`
+ * Update `.gitignore`, `.npmignore`, bower ignore
+ * Update eslint, mocha
+
 0.1.1 / 2014-09-29
 ==================
 
