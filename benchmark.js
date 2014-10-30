@@ -15,7 +15,7 @@ var distance,
     levenshteinComponent,
     leven;
 
-distance = require('..');
+distance = require('./');
 
 try {
     fastLevenshtein = require('fast-levenshtein').get;
