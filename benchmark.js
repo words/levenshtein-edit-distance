@@ -148,6 +148,11 @@ fixtures = Array(11).join([
     'abattoirs'
 ].join('|')).split('|');
 
+/**
+ * Benchmark all fixtures.
+ *
+ * @param {function (string, string)} callback
+ */
 function benchAll(callback) {
     var index,
         prev,
