@@ -7,7 +7,9 @@
     "vladimir",
     "levenshtein",
     "edit",
-    "distance"
+    "distance",
+    "bin",
+    "cli"
   ],
   "repository": {
     "type": "git",
@@ -20,13 +22,15 @@
     ".*",
     "*.log",
     "*.md",
+    "*.sh",
     "build/",
     "components/",
     "coverage/",
     "node_modules/",
-    "benchmark.js",
-    "test.js",
     "component.json",
-    "package.json"
+    "package.json",
+    "benchmark.js",
+    "cli.js",
+    "test.js"
   ]
 }

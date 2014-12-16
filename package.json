@@ -7,13 +7,18 @@
     "vladimir",
     "levenshtein",
     "edit",
-    "distance"
+    "distance",
+    "bin",
+    "cli"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wooorm/levenshtein-edit-distance.git"
   },
   "author": "Titus Wormer <tituswormer@gmail.com>",
+  "bin": {
+    "levenshtein-edit-distance": "cli.js"
+  },
   "devDependencies": {
     "eslint": "^0.10.0",
     "istanbul": "^0.3.0",
@@ -24,13 +29,16 @@
   },
   "scripts": {
     "test": "node_modules/.bin/_mocha --reporter spec --check-leaks -u exports test.js",
-    "test-travis": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec --check-leaks -u exports test.js",
+    "test-cli": "bash ./test.sh",
+    "test-coveralls": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec --check-leaks -u exports test.js",
+    "test-travis": "npm run test-cli && npm run test-coveralls",
     "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -- test.js",
     "lint-api": "node_modules/.bin/eslint index.js --rule 'no-cond-assign: false, strict: false'",
-    "lint-test": "node_modules/.bin/eslint test.js --env mocha",
     "lint-benchmark": "node_modules/.bin/eslint benchmark.js --global suite,set,bench",
-    "lint-style": "node_modules/.bin/jscs test.js benchmark.js --reporter=inline",
-    "lint": "npm run lint-api && npm run lint-test && npm run lint-style && npm run lint-benchmark",
+    "lint-cli": "node_modules/.bin/eslint cli.js --rule 'no-process-exit: false'",
+    "lint-test": "node_modules/.bin/eslint test.js --env mocha",
+    "lint-style": "node_modules/.bin/jscs benchmark.js cli.js test.js --reporter=inline",
+    "lint": "npm run lint-api && npm run lint-benchmark && npm run lint-cli && npm run lint-test && npm run lint-style",
     "make": "npm run lint && npm run coverage",
     "install-benchmark": "npm install natural fast-levenshtein levenshtein levenshtein-component levenshtein-deltas leven",
     "benchmark": "node_modules/.bin/matcha benchmark.js"

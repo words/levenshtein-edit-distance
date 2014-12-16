@@ -5,17 +5,17 @@
 ## Installation
 
 npm:
-```sh
+```bash
 $ npm install levenshtein-edit-distance
 ```
 
 Component:
-```sh
+```bash
 $ component install wooorm/levenshtein-edit-distance
 ```
 
 Bower:
-```sh
+```bash
 $ bower install levenshtein-edit-distance
 ```
 
@@ -36,6 +36,34 @@ levenshteinDistance('DwAyNE', 'DUANE') !== levenshteinDistance('dwayne', 'DuAnE'
 levenshteinDistance('aarrgh', 'aargh') === levenshteinDistance('aargh', 'aarrgh'); // true
 ```
 
+## CLI
+
+Install:
+```bash
+$ npm install --global levenshtein-edit-distance
+```
+
+Use:
+```
+Usage: levenshtein-edit-distance [options] words...
+
+Levenshtein edit distance. No cruft. Real fast.
+
+Options:
+
+  -h, --help           output usage information
+  -v, --version        output version number
+
+Usage:
+
+# output distance between values
+$ levenshtein-edit-distance sitting kitten
+# 3
+
+# output distance between values from stdin
+$ echo "saturday,sunday" | levenshtein-edit-distance
+# 3
+```
 ## Other Levenshtein libraries
 
 - [sindresorhus/leven](https://github.com/sindresorhus/leven) — Supports a CLI;

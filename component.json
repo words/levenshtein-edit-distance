@@ -7,7 +7,9 @@
     "vladimir",
     "levenshtein",
     "edit",
-    "distance"
+    "distance",
+    "bin",
+    "cli"
   ],
   "repository": "wooorm/levenshtein-edit-distance",
   "scripts" : [
