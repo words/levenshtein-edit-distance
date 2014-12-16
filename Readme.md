@@ -47,35 +47,29 @@ levenshteinDistance('aarrgh', 'aargh') === levenshteinDistance('aargh', 'aarrgh'
 
 ## Benchmark
 
-On a MacBook Air, it runs about 1,915,000 op/s.
-
-Run the benchmark yourself:
-
-```sh
-$ npm run benchmark
-```
+On a MacBook Air, it runs about 1,909,000 op/s.
 
 ```
-             Levenshtein — to be fair, it lets you inspect a matrix
-    129 op/s » op/s * 1,000
+              Levenshtein — to be fair, it lets you inspect a matrix
+     113 op/s » op/s * 1,000
 
-             natural — to be fair, it offers more options
-    212 op/s » op/s * 1,000
+              natural — to be fair, it offers more options
+     183 op/s » op/s * 1,000
 
-             levenshtein-deltas
-    252 op/s » op/s * 1,000
+              levenshtein-deltas
+     237 op/s » op/s * 1,000
 
-             levenshtein-component
-    335 op/s » op/s * 1,000
+              levenshtein-component
+     305 op/s » op/s * 1,000
 
-             fast-levenshtein
-  1,251 op/s » op/s * 1,000
+              fast-levenshtein
+   1,141 op/s » op/s * 1,000
 
-             Leven — fast.
-  1,541 op/s » op/s * 1,000
+              Leven — fast.
+   2,076 op/s » op/s * 1,000
 
-             levenshtein-edit-distance — this module
-  1,915 op/s » op/s * 1,000
+              levenshtein-edit-distance — this module
+   1,909 op/s » op/s * 1,000
 ```
 
 ## License
