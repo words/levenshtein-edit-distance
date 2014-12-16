@@ -80,4 +80,4 @@ $ npm run benchmark
 
 ## License
 
-MIT © Titus Wormer
+MIT © [Titus Wormer](http://wooorm.com)
