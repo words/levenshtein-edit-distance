@@ -4,24 +4,27 @@
 
 ## Installation
 
-npm:
+[npm](https://docs.npmjs.com/cli/install):
+
 ```bash
 $ npm install levenshtein-edit-distance
 ```
 
-Component:
+[Component.js](https://github.com/componentjs/component):
+
 ```bash
 $ component install wooorm/levenshtein-edit-distance
 ```
 
-Bower:
+[Bower](http://bower.io/#install-packages):
+
 ```bash
 $ bower install levenshtein-edit-distance
 ```
 
 ## Usage
 
-```js
+```javascript
 var levenshteinDistance = require('levenshtein-edit-distance');
 
 levenshteinDistance('levenshtein', 'levenshtein'); // 0
@@ -39,12 +42,14 @@ levenshteinDistance('aarrgh', 'aargh') === levenshteinDistance('aargh', 'aarrgh'
 ## CLI
 
 Install:
+
 ```bash
 $ npm install --global levenshtein-edit-distance
 ```
 
 Use:
-```
+
+```text
 Usage: levenshtein-edit-distance [options] words...
 
 Levenshtein edit distance. No cruft. Real fast.
@@ -64,6 +69,7 @@ $ levenshtein-edit-distance sitting kitten
 $ echo "saturday,sunday" | levenshtein-edit-distance
 # 3
 ```
+
 ## Other Levenshtein libraries
 
 - [sindresorhus/leven](https://github.com/sindresorhus/leven) — Supports a CLI;
@@ -77,7 +83,7 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 
 On a MacBook Air, it runs about 1,909,000 op/s.
 
-```
+```text
               Levenshtein — to be fair, it lets you inspect a matrix
      113 op/s » op/s * 1,000
 
