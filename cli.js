@@ -5,11 +5,19 @@
  * Dependencies.
  */
 
-var levenshteinEditDistance,
+var levenshtein,
     pack;
 
-levenshteinEditDistance = require('./');
+levenshtein = require('./');
 pack = require('./package.json');
+
+/*
+ * Detect if a value is expected to be piped in.
+ */
+
+var expextPipeIn;
+
+expextPipeIn = !process.stdin.isTTY;
 
 /*
  * Arguments.
@@ -28,12 +36,24 @@ var command;
 command = Object.keys(pack.bin)[0];
 
 /**
+ * Get the distance for words.
+ *
+ * @param {Array.<string>} values
+ * @return {number}
+ */
+function distance(values) {
+    return levenshtein(values[0], values[1]);
+}
+
+/**
  * Help.
+ *
+ * @return {string}
  */
 function help() {
     return [
         '',
-        'Usage: ' + command + ' [options] words...',
+        'Usage: ' + command + ' [options] word word',
         '',
         pack.description,
         '',
@@ -44,24 +64,31 @@ function help() {
         '',
         'Usage:',
         '',
-        '# output distance between values',
+        '# output distance',
         '$ ' + command + ' sitting kitten',
-        '# 3',
+        '# ' + distance(['sitting', 'kitten']),
         '',
-        '# output distance between values from stdin',
+        '# output distance from stdin',
         '$ echo "saturday,sunday" | ' + command,
-        '# 3'
+        '# ' + distance(['saturday', 'sunday']),
+        ''
     ].join('\n  ') + '\n';
 }
 
 /**
- * Get the levenshtein distance of an array of strings.
+ * Get the edit distance for a list containing two word.
  *
- * @param {Array.<string>} values
+ * @param {string?} value
  */
-function getDistance(values) {
-    if (values.length === 2) {
-        console.log(levenshteinEditDistance(values[0], values[1]));
+function getDistance(value) {
+    var values;
+
+    if (value) {
+        values = value.split(',').join(' ').split(/\s+/);
+    }
+
+    if (values && values.length === 2) {
+        console.log(distance(values));
     } else {
         process.stderr.write(help());
         process.exit(1);
@@ -82,16 +109,14 @@ if (
     argv.indexOf('-v') !== -1
 ) {
     console.log(pack.version);
-} else if (argv[0]) {
-    if (argv[0].indexOf(',') !== -1) {
-        argv = argv[0].split(',');
-    }
-
-    getDistance(argv);
+} else if (argv.length) {
+    getDistance(argv.join(' '));
+} else if (!expextPipeIn) {
+    getDistance();
 } else {
     process.stdin.resume();
     process.stdin.setEncoding('utf8');
     process.stdin.on('data', function (data) {
-        getDistance(data.trim().split(/ |,/g));
+        getDistance(data.trim());
     });
 }
