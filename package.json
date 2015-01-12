@@ -28,19 +28,20 @@
     "mocha": "^2.0.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/_mocha --reporter spec --check-leaks -u exports test.js",
+    "test-api": "_mocha --check-leaks test.js",
     "test-cli": "bash ./test.sh",
-    "test-coveralls": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec --check-leaks -u exports test.js",
-    "test-travis": "npm run test-cli && npm run test-coveralls",
-    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -- test.js",
-    "lint-api": "node_modules/.bin/eslint index.js --rule 'no-cond-assign: false, strict: false'",
-    "lint-benchmark": "node_modules/.bin/eslint benchmark.js --global suite,set,bench",
-    "lint-cli": "node_modules/.bin/eslint cli.js --rule 'no-process-exit: false'",
-    "lint-test": "node_modules/.bin/eslint test.js --env mocha",
-    "lint-style": "node_modules/.bin/jscs benchmark.js cli.js test.js --reporter=inline",
+    "test-coveralls": "istanbul cover _mocha --report lcovonly -- --check-leaks test.js",
+    "test-coverage": "istanbul cover _mocha -- --check-leaks test.js",
+    "test-travis": "npm run test-coveralls && npm run test-cli",
+    "test": "npm run test-api && npm run test-cli",
+    "lint-api": "eslint --rule no-cond-assign:false,strict:false index.js",
+    "lint-benchmark": "eslint --global suite,set,bench benchmark.js",
+    "lint-cli": "eslint --rule no-process-exit:false cli.js",
+    "lint-test": "eslint --env mocha test.js",
+    "lint-style": "jscs --reporter inline benchmark.js cli.js test.js",
     "lint": "npm run lint-api && npm run lint-benchmark && npm run lint-cli && npm run lint-test && npm run lint-style",
-    "make": "npm run lint && npm run coverage",
+    "make": "npm run lint && npm run test-coverage",
     "install-benchmark": "npm install natural fast-levenshtein levenshtein levenshtein-component levenshtein-deltas leven",
-    "benchmark": "node_modules/.bin/matcha benchmark.js"
+    "benchmark": "matcha benchmark.js"
   }
 }
