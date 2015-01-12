@@ -35,12 +35,7 @@ it "Should fail on too many comma seperated values"
     ./cli.js "sitting,kitten,fitting" > /dev/null 2>&1 || code=$?
     assert $code 1
 
-it "Should fail on too few space seperated values"
-    code=0
-    ./cli.js "sitting" > /dev/null 2>&1 || code=$?
-    assert $code 1
-
-it "Should fail on too few comma seperated values"
+it "Should fail on too few space values"
     code=0
     ./cli.js "sitting" > /dev/null 2>&1 || code=$?
     assert $code 1
@@ -49,7 +44,7 @@ it "Should accept space seperated values over stdin"
     result=`echo "sitting kitten" | ./cli.js` 2> /dev/null
     assert $result "3"
 
-it "Should accept comma seperated values"
+it "Should accept comma seperated values over stdin"
     result=`echo "sitting,kitten" | ./cli.js` 2> /dev/null
     assert $result "3"
 
@@ -63,9 +58,14 @@ it "Should fail on too many comma seperated values over stdin"
     echo "sitting,kitten,fitting" | ./cli.js > /dev/null 2>&1 || code=$?
     assert $code 1
 
-it "Should fail on too values over stdin"
+it "Should fail on too few values over stdin"
     code=0
     echo "sitting" | ./cli.js > /dev/null 2>&1 || code=$?
+    assert $code 1
+
+it "Should fail when no values are piped in and no values are given"
+    code=0
+    ./cli.js > /dev/null 2>&1 || code=$?
     assert $code 1
 
 it "Should accept \`--help\`"
@@ -89,5 +89,3 @@ it "Should accept \`-v\`"
     assert $code 0
 
 printf "\033[32m\n(✓) Passed $tests assertions without errors\033[0m\n";
-
-exit 0
