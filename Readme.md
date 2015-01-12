@@ -22,21 +22,27 @@ $ component install wooorm/levenshtein-edit-distance
 $ bower install levenshtein-edit-distance
 ```
 
+[Duo](http://duojs.org/#getting-started):
+
+```javascript
+var levenshtein = require('wooorm/levenshtein-edit-distance');
+```
+
 ## Usage
 
 ```javascript
-var levenshteinDistance = require('levenshtein-edit-distance');
+var levenshtein = require('levenshtein-edit-distance');
 
-levenshteinDistance('levenshtein', 'levenshtein'); // 0
-levenshteinDistance('sitting', 'kitten'); // 3
-levenshteinDistance('gumbo', 'gambol'); // 2
-levenshteinDistance('saturday', 'sunday'); // 3
+levenshtein('levenshtein', 'levenshtein'); // 0
+levenshtein('sitting', 'kitten'); // 3
+levenshtein('gumbo', 'gambol'); // 2
+levenshtein('saturday', 'sunday'); // 3
 
 /* Case sensitive! */
-levenshteinDistance('DwAyNE', 'DUANE') !== levenshteinDistance('dwayne', 'DuAnE'); // true
+levenshtein('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE'); // true
 
 /* Order insensitive */
-levenshteinDistance('aarrgh', 'aargh') === levenshteinDistance('aargh', 'aarrgh'); // true
+levenshtein('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh'); // true
 ```
 
 ## CLI
