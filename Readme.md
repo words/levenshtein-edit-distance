@@ -56,7 +56,7 @@ $ npm install --global levenshtein-edit-distance
 Use:
 
 ```text
-Usage: levenshtein-edit-distance [options] words...
+Usage: levenshtein-edit-distance [options] word word
 
 Levenshtein edit distance. No cruft. Real fast.
 
@@ -67,11 +67,11 @@ Options:
 
 Usage:
 
-# output distance between values
+# output distance
 $ levenshtein-edit-distance sitting kitten
 # 3
 
-# output distance between values from stdin
+# output distance from stdin
 $ echo "saturday,sunday" | levenshtein-edit-distance
 # 3
 ```
