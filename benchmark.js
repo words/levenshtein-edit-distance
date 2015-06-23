@@ -1,7 +1,7 @@
 'use strict';
 
-/* eslint-disable no-cond-assign */
 /* eslint-disable no-new */
+/* globals suite,bench */
 
 /**
  * Dependencies.

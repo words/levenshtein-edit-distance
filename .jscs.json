@@ -1,4 +1,12 @@
 {
+  "excludeFiles": [
+    "build/",
+    "components/",
+    "coverage/",
+    "node_modules/",
+    "build.js",
+    "index.js"
+  ],
   "plugins": [
     "jscs-jsdoc"
   ],

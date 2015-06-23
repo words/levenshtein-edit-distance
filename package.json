@@ -20,7 +20,7 @@
     "levenshtein-edit-distance": "cli.js"
   },
   "devDependencies": {
-    "eslint": "^0.11.0",
+    "eslint": "^0.23.0",
     "istanbul": "^0.3.0",
     "jscs": "^1.0.0",
     "jscs-jsdoc": "^0.4.0",
@@ -34,12 +34,9 @@
     "test-coverage": "istanbul cover _mocha -- --check-leaks test.js",
     "test-travis": "npm run test-coveralls && npm run test-cli",
     "test": "npm run test-api && npm run test-cli",
-    "lint-api": "eslint --rule no-cond-assign:false,strict:false index.js",
-    "lint-benchmark": "eslint --global suite,set,bench benchmark.js",
-    "lint-cli": "eslint --rule no-process-exit:false cli.js",
-    "lint-test": "eslint --env mocha test.js",
-    "lint-style": "jscs --reporter inline benchmark.js cli.js test.js",
-    "lint": "npm run lint-api && npm run lint-benchmark && npm run lint-cli && npm run lint-test && npm run lint-style",
+    "lint-api": "eslint .",
+    "lint-style": "jscs --reporter inline .",
+    "lint": "npm run lint-api && npm run lint-style",
     "make": "npm run lint && npm run test-coverage",
     "install-benchmark": "npm install natural fast-levenshtein levenshtein levenshtein-component levenshtein-deltas leven",
     "benchmark": "matcha benchmark.js"
