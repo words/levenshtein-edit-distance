@@ -1,4 +1,12 @@
 
+1.0.0 / 2015-06-23
+==================
+
+*   Add support for insensitive comparison ([16d4b02](https://github.com/wooorm/levenshtein-edit-distance/commit/16d4b02))
+*   Update jscs-jsdoc ([6f4af86](https://github.com/wooorm/levenshtein-edit-distance/commit/6f4af86))
+*   Add `build.js` to `.gitignore` ([7bd02e1](https://github.com/wooorm/levenshtein-edit-distance/commit/7bd02e1))
+*   Update eslint ([222800f](https://github.com/wooorm/levenshtein-edit-distance/commit/222800f))
+
 0.1.4 / 2015-01-12
 ==================
 
