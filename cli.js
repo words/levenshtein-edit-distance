@@ -37,6 +37,12 @@ var command;
 
 command = Object.keys(pack.bin)[0];
 
+/*
+ * Whether to ignore case.
+ */
+
+var insensitive = false;
+
 /**
  * Get the distance for words.
  *
@@ -44,7 +50,7 @@ command = Object.keys(pack.bin)[0];
  * @return {number}
  */
 function distance(values) {
-    return levenshtein(values[0], values[1]);
+    return levenshtein(values[0], values[1], insensitive);
 }
 
 /**
@@ -63,6 +69,7 @@ function help() {
         '',
         '  -h, --help           output usage information',
         '  -v, --version        output version number',
+        '  -i, --insensitive    ignore casing',
         '',
         'Usage:',
         '',
@@ -101,17 +108,36 @@ function getDistance(value) {
  * Program.
  */
 
+var index = argv.indexOf('--insensitive');
+
+if (index === -1) {
+    index = argv.indexOf('-i');
+}
+
 if (
     argv.indexOf('--help') !== -1 ||
     argv.indexOf('-h') !== -1
 ) {
     console.log(help());
-} else if (
+
+    return;
+}
+
+if (
     argv.indexOf('--version') !== -1 ||
     argv.indexOf('-v') !== -1
 ) {
     console.log(pack.version);
-} else if (argv.length) {
+
+    return;
+}
+
+if (index !== -1) {
+    argv.splice(index, 1);
+    insensitive = true;
+}
+
+if (argv.length) {
     getDistance(argv.join(' '));
 } else if (!expextPipeIn) {
     getDistance();

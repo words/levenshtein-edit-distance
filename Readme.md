@@ -41,6 +41,9 @@ levenshtein('saturday', 'sunday'); // 3
 /* Case sensitive! */
 levenshtein('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE'); // true
 
+/* Insensitive: */
+levenshtein('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true); // true
+
 /* Order insensitive */
 levenshtein('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh'); // true
 ```
@@ -64,6 +67,7 @@ Options:
 
   -h, --help           output usage information
   -v, --version        output version number
+  -i, --insensitive    ignore casing
 
 Usage:
 

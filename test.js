@@ -40,6 +40,13 @@ describe('levenshteinDistance()', function () {
         );
     });
 
+    it('should match case if `insensitive` is given', function () {
+        assert(
+            levenshteinDistance('DwAyNE', 'DUANE', true) ===
+            levenshteinDistance('dwayne', 'DuAnE', true)
+        );
+    });
+
     it('should not care about parameter order', function () {
         assert(
             levenshteinDistance('aarrgh', 'aargh') ===

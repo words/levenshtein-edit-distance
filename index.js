@@ -4,7 +4,7 @@ var cache,
 cache = [];
 codes = [];
 
-function levenshtein(value, other) {
+function levenshtein(value, other, insensitive) {
     var length,
         lengthOther,
         code,
@@ -27,6 +27,11 @@ function levenshtein(value, other) {
 
     if (lengthOther === 0) {
         return length;
+    }
+
+    if (insensitive) {
+        value = value.toLowerCase();
+        other = other.toLowerCase();
     }
 
     index = 0;

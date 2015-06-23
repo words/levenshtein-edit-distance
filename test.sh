@@ -21,6 +21,18 @@ it "Should accept space seperated values"
     result=`./cli.js "sitting" "kitten"` 2> /dev/null
     assert $result "3"
 
+it "Should be case-sensitive by default"
+    result=`./cli.js "a" "A"` 2> /dev/null
+    assert $result "1"
+
+it "Should be case-insensitive when given \`-i\`"
+    result=`./cli.js -i "a" "A"` 2> /dev/null
+    assert $result "0"
+
+it "Should be case-insensitive when given \`--insensitive\`"
+    result=`./cli.js --insensitive "a" "A"` 2> /dev/null
+    assert $result "0"
+
 it "Should accept comma seperated values"
     result=`./cli.js "sitting,kitten"` 2> /dev/null
     assert $result "3"
