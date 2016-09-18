@@ -1,103 +1,139 @@
+/**
+ * @author Titus Wormer
+ * @copyright 2014 Titus Wormer
+ * @license MIT
+ * @module levenshtein-edit-distance
+ * @fileoverview Test suite for `levenshtein-edit-distance`.
+ */
+
 'use strict';
 
-/* eslint-env mocha */
+/* Dependencies. */
+var PassThrough = require('stream').PassThrough;
+var test = require('tape');
+var execa = require('execa');
+var version = require('./package').version;
+var levenshtein = require('./');
 
-/**
- * Dependencies.
- */
+/* API. */
+test('api', function (t) {
+  t.test('should work', function (st) {
+    st.equal(levenshtein('', 'a'), 1);
+    st.equal(levenshtein('a', ''), 1);
+    st.equal(levenshtein('', ''), 0);
+    st.equal(levenshtein('levenshtein', 'levenshtein'), 0);
+    st.equal(levenshtein('sitting', 'kitten'), 3);
+    st.equal(levenshtein('gumbo', 'gambol'), 2);
+    st.equal(levenshtein('saturday', 'sunday'), 3);
 
-var levenshteinDistance,
-    assert;
+    st.notEqual(
+      levenshtein('DwAyNE', 'DUANE'),
+      levenshtein('dwayne', 'DuAnE'),
+      'should not match case insensitive'
+    );
 
-levenshteinDistance = require('./');
-assert = require('assert');
+    st.equal(
+      levenshtein('DwAyNE', 'DUANE', true),
+      levenshtein('dwayne', 'DuAnE', true),
+      'should match case if `insensitive` is given'
+    );
 
-/**
- * Tests.
- */
+    st.equal(
+      levenshtein('aarrgh', 'aargh'),
+      levenshtein('aargh', 'aarrgh'),
+      'should not care about parameter order'
+    );
 
-describe('levenshteinDistance()', function () {
-    it('should work', function () {
-        assert(levenshteinDistance('', 'a') === 1);
+    st.end();
+  });
 
-        assert(levenshteinDistance('a', '') === 1);
+  t.test('Compatibility with `fast-levenshtein`', function (st) {
+    st.equal(levenshtein('a', 'b'), 1);
+    st.equal(levenshtein('ab', 'ac'), 1);
+    st.equal(levenshtein('ac', 'bc'), 1);
+    st.equal(levenshtein('abc', 'axc'), 1);
+    st.equal(levenshtein('xabxcdxxefxgx', '1ab2cd34ef5g6'), 6);
+    st.equal(levenshtein('xabxcdxxefxgx', 'abcdefg'), 6);
+    st.equal(levenshtein('javawasneat', 'scalaisgreat'), 7);
+    st.equal(levenshtein('example', 'samples'), 3);
+    st.equal(levenshtein('sturgeon', 'urgently'), 6);
+    st.equal(levenshtein('levenshtein', 'frankenstein'), 6);
+    st.equal(levenshtein('distance', 'difference'), 5);
+    st.equal(levenshtein('因為我是中國人所以我會說中文', '因為我是英國人所以我會說英文'), 2);
+    st.equal(
+      levenshtein(
+        'Morbi interdum ultricies neque varius condimentum. Donec ' +
+        'volutpat turpis interdum metus ultricies vulputate. Duis ' +
+        'ultricies rhoncus sapien, sit amet fermentum risus ' +
+        'imperdiet vitae. Ut et lectus',
+        'Duis erat dolor, cursus in tincidunt a, lobortis in odio. ' +
+        'Cras magna sem, pharetra et iaculis quis, faucibus quis ' +
+        'tellus. Suspendisse dapibus sapien in justo cursus'
+      ),
+      143
+    );
 
-        assert(levenshteinDistance('', '') === 0);
+    st.end();
+  });
 
-        assert(levenshteinDistance('levenshtein', 'levenshtein') === 0);
-
-        assert(levenshteinDistance('sitting', 'kitten') === 3);
-
-        assert(levenshteinDistance('gumbo', 'gambol') === 2);
-
-        assert(levenshteinDistance('saturday', 'sunday') === 3);
-    });
-
-    it('should not match case insensitive', function () {
-        assert(
-            levenshteinDistance('DwAyNE', 'DUANE') !==
-            levenshteinDistance('dwayne', 'DuAnE')
-        );
-    });
-
-    it('should match case if `insensitive` is given', function () {
-        assert(
-            levenshteinDistance('DwAyNE', 'DUANE', true) ===
-            levenshteinDistance('dwayne', 'DuAnE', true)
-        );
-    });
-
-    it('should not care about parameter order', function () {
-        assert(
-            levenshteinDistance('aarrgh', 'aargh') ===
-            levenshteinDistance('aargh', 'aarrgh')
-        );
-    });
+  t.end();
 });
 
-/**
- * Tests from fast-levenshtein, just to make sure thing
- * are interoperable.
- *
- * Source:
- *   https://github.com/hiddentao/fast-levenshtein
- */
+/* CLI. */
+test('cli', function (t) {
+  var input = new PassThrough();
 
-describe('Compatibility with `fast-levenshtein`', function () {
-    it('should work', function () {
-        assert(levenshteinDistance('a', 'b') === 1);
+  t.plan(12);
 
-        assert(levenshteinDistance('ab', 'ac') === 1);
+  execa.stdout('./cli.js', ['sitting', 'kitten']).then(function (result) {
+    t.equal(result, '3', 'space seperated values');
+  });
 
-        assert(levenshteinDistance('ac', 'bc') === 1);
+  execa.stdout('./cli.js', ['sitting']).then(null, function (err) {
+    t.ok(/\s+Usage: levenshtein-edit-distance/.test(err.stderr), 'stdin (one value)');
+  });
 
-        assert(levenshteinDistance('abc', 'axc') === 1);
+  execa.stdout('./cli.js', ['sitting, kitten']).then(function (result) {
+    t.equal(result, '3', 'comma- and space seperated values');
+  });
 
-        assert(levenshteinDistance('xabxcdxxefxgx', '1ab2cd34ef5g6') === 6);
+  execa.stdout('./cli.js', ['A', 'a']).then(function (result) {
+    t.equal(result, '1', 'case-sensitive by default');
+  });
 
-        assert(levenshteinDistance('xabxcdxxefxgx', 'abcdefg') === 6);
-
-        assert(levenshteinDistance('javawasneat', 'scalaisgreat') === 7);
-
-        assert(levenshteinDistance('example', 'samples') === 3);
-
-        assert(levenshteinDistance('sturgeon', 'urgently') === 6);
-
-        assert(levenshteinDistance('levenshtein', 'frankenstein') === 6);
-
-        assert(levenshteinDistance('distance', 'difference') === 5);
-
-        assert(levenshteinDistance('因為我是中國人所以我會說中文', '因為我是英國人所以我會說英文') === 2);
-
-        assert(levenshteinDistance(
-                'Morbi interdum ultricies neque varius condimentum. Donec ' +
-                'volutpat turpis interdum metus ultricies vulputate. Duis ' +
-                'ultricies rhoncus sapien, sit amet fermentum risus ' +
-                'imperdiet vitae. Ut et lectus',
-                'Duis erat dolor, cursus in tincidunt a, lobortis in odio. ' +
-                'Cras magna sem, pharetra et iaculis quis, faucibus quis ' +
-                'tellus. Suspendisse dapibus sapien in justo cursus'
-            ) === 143
-        );
+  ['-i', '--insensitive'].forEach(function (flag) {
+    execa.stdout('./cli.js', [flag, 'A', 'a']).then(function (result) {
+      t.equal(result, '0', 'optionally case-insensitive with ' + flag);
     });
+  });
+
+  execa.stdout('./cli.js', {input: input}).then(function (result) {
+    t.equal(result, '6', 'stdin');
+  });
+
+  input.write('sturgeon');
+
+  setImmediate(function () {
+    input.end(' urgently');
+
+    input = new PassThrough();
+
+    execa('./cli.js', {input: input}).then(null, function (err) {
+      t.ok(/\s+Usage: levenshtein-edit-distance/.test(err.stderr), 'stdin (one value)');
+    });
+
+    input.end('sturgeon');
+  });
+
+  ['-h', '--help'].forEach(function (flag) {
+    execa.stdout('./cli.js', [flag]).then(function (result) {
+      t.ok(/\s+Usage: levenshtein-edit-distance/.test(result), flag);
+    });
+  });
+
+  ['-v', '--version'].forEach(function (flag) {
+    execa.stdout('./cli.js', [flag]).then(function (result) {
+      t.equal(result, version, flag);
+    });
+  });
 });

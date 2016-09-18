@@ -1,71 +1,73 @@
-var cache,
-    codes;
+/**
+ * @author Titus Wormer
+ * @copyright 2014 Titus Wormer
+ * @license MIT
+ * @module levenshtein-edit-distance
+ * @fileoverview Detect edit distance.
+ */
 
-cache = [];
-codes = [];
+'use strict';
+
+/* Expose. */
+module.exports = levenshtein;
+
+/* eslint-disable no-nested-ternary */
+
+var cache = [];
+var codes = [];
 
 function levenshtein(value, other, insensitive) {
-    var length,
-        lengthOther,
-        code,
-        result,
-        distance,
-        distanceOther,
-        index,
-        indexOther;
+  var length;
+  var lengthOther;
+  var code;
+  var result;
+  var distance;
+  var distanceOther;
+  var index;
+  var indexOther;
 
-    if (value === other) {
-        return 0;
+  if (value === other) {
+    return 0;
+  }
+
+  length = value.length;
+  lengthOther = other.length;
+
+  if (length === 0) {
+    return lengthOther;
+  }
+
+  if (lengthOther === 0) {
+    return length;
+  }
+
+  if (insensitive) {
+    value = value.toLowerCase();
+    other = other.toLowerCase();
+  }
+
+  index = 0;
+
+  while (index < length) {
+    codes[index] = value.charCodeAt(index);
+    cache[index] = ++index;
+  }
+
+  indexOther = 0;
+
+  while (indexOther < lengthOther) {
+    code = other.charCodeAt(indexOther);
+    result = distance = indexOther++;
+    index = -1;
+
+    while (++index < length) {
+      distanceOther = code === codes[index] ? distance : distance + 1;
+      distance = cache[index];
+      cache[index] = result = distance > result ?
+        distanceOther > result ? result + 1 : distanceOther :
+        distanceOther > distance ? distance + 1 : distanceOther;
     }
+  }
 
-    length = value.length;
-    lengthOther = other.length;
-
-    if (length === 0) {
-        return lengthOther;
-    }
-
-    if (lengthOther === 0) {
-        return length;
-    }
-
-    if (insensitive) {
-        value = value.toLowerCase();
-        other = other.toLowerCase();
-    }
-
-    index = 0;
-
-    while (index < length) {
-        codes[index] = value.charCodeAt(index);
-        cache[index] = ++index;
-    }
-
-    indexOther = 0;
-
-    while (indexOther < lengthOther) {
-        code = other.charCodeAt(indexOther);
-
-        result = distance = indexOther++;
-
-        index = -1;
-
-        while (++index < length) {
-            distanceOther = code === codes[index] ? distance : distance + 1;
-
-            distance = cache[index];
-
-            cache[index] = result = distance > result
-                ? distanceOther > result
-                    ? result + 1
-                    : distanceOther
-                : distanceOther > distance
-                    ? distance + 1
-                    : distanceOther;
-        }
-    }
-
-    return result;
+  return result;
 }
-
-module.exports = levenshtein;

@@ -1,13 +1,24 @@
 language: node_js
-script: npm run-script test-travis
 node_js:
-- '0.10'
 - '0.11'
-after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
+- '5.0'
+- '6.0'
+sudo: false
+after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
-  provider: npm
-  email: tituswormer@gmail.com
-  api_key:
-    secure: T/hBLA976a6hInKuWrUVtcfnVkN+gjUaseBSot1mWz+cuoPA2b/GHtIQOeVIksFB7Jxczu1YS1Pki6kidkDxTyRgfu0rUDKbRwytfr3NoztS9T85EdkZFf3YaUDkTdSneVz1mZY/1WxFWg1hOcbpb9bemo2tCnxedCI/I4l6iTE=
-  on:
-    repo: wooorm/levenshtein-edit-distance
+  - provider: npm
+    email: tituswormer@gmail.com
+    api_key:
+      secure: CMwqv4pBdV1R+oSJcfumNrwOD3zSBTXnfUE+uuNvYGne3LtJW+8LJdaYY6R96zz03dgrSaXgMf4wmhxGMF7Fk0wBf72P8qr0ITm+bvScBdMIbqW3jVH3i2ECRIxD8Wqe81kxfYFEsJCMtLFdn59nyc1e74KZJkS0POgFsd+z4m4=
+    on:
+      tags: true
+      node: '5.0'
+  - provider: releases
+    api_key:
+      secure: akSkN0mjd+4J3u0Vp7lHAne3I5OMN4O7/sXSH08GVqnnL3kIzVhweiwkRrQ/c8gV5eqMksAnroSoOAs/cPb3S2+QBcSjEMopjgZ+dbOdq45gbpCpwPefMT64dD7N0hGB00CwQzFRdiN41ubTR9FiQNRuRyHAavqA5krH5UHY1yw=
+    file:
+      - "levenshtein-edit-distance.js"
+      - "levenshtein-edit-distance.min.js"
+    on:
+      tags: true
+      node: '6.0'
