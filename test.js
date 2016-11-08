@@ -1,21 +1,11 @@
-/**
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module levenshtein-edit-distance
- * @fileoverview Test suite for `levenshtein-edit-distance`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var PassThrough = require('stream').PassThrough;
 var test = require('tape');
 var execa = require('execa');
 var version = require('./package').version;
 var levenshtein = require('./');
 
-/* API. */
 test('api', function (t) {
   t.test('should work', function (st) {
     st.equal(levenshtein('', 'a'), 1);
@@ -79,7 +69,6 @@ test('api', function (t) {
   t.end();
 });
 
-/* CLI. */
 test('cli', function (t) {
   var input = new PassThrough();
 

@@ -1,12 +1,4 @@
 #!/usr/bin/env node
-/**
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module levenshtein-edit-distance
- * @fileoverview CLI for `levenshtein-edit-distance`.
- */
-
 'use strict';
 
 /* Dependencies. */

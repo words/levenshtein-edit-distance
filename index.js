@@ -1,14 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2014 Titus Wormer
- * @license MIT
- * @module levenshtein-edit-distance
- * @fileoverview Detect edit distance.
- */
-
 'use strict';
 
-/* Expose. */
 module.exports = levenshtein;
 
 /* eslint-disable no-nested-ternary */
