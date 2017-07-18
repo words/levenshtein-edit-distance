@@ -11,15 +11,12 @@
     "bin",
     "cli"
   ],
-  "repository": "https://github.com/wooorm/levenshtein-edit-distance",
+  "repository": "wooorm/levenshtein-edit-distance",
   "bugs": "https://github.com/wooorm/levenshtein-edit-distance/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
   ],
-  "engines": {
-    "node": ">=0.11.0"
-  },
   "bin": "cli.js",
   "files": [
     "index.js",
@@ -63,6 +60,8 @@
     ]
   },
   "remarkConfig": {
-    "plugins": ["preset-wooorm"]
+    "plugins": [
+      "preset-wooorm"
+    ]
   }
 }
