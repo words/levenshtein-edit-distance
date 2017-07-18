@@ -71,6 +71,16 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
     — C CLI
 *   [`levenshtein-rs`](https://github.com/wooorm/levenshtein-rs)
     — Rust API
+*   [`lancaster-stemmer`](https://github.com/wooorm/lancaster-stemmer)
+    — Lancaster stemming algorithm
+*   [`double-metaphone`](https://github.com/wooorm/double-metaphone)
+    — Double Metaphone implementation
+*   [`soundex-code`](https://github.com/wooorm/soundex-code)
+    — Fast Soundex implementation
+*   [`dice-coefficient`](https://github.com/wooorm/dice-coefficient)
+    — Sørensen–Dice coefficient
+*   [`syllable`](https://github.com/wooorm/syllable)
+    — Syllable count in an English word
 
 ## License
 
