@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-/* Dependencies. */
 var pack = require('./package.json');
 var levenshtein = require('./');
 
-/* Arguments. */
 var argv = process.argv.slice(2);
 var insensitive = false;
 
@@ -17,7 +15,6 @@ var insensitive = false;
   }
 });
 
-/* Program. */
 if (
   argv.indexOf('--help') !== -1 ||
   argv.indexOf('-h') !== -1
@@ -38,11 +35,6 @@ if (
   getDistance(argv.join(' '));
 }
 
-/**
- * Help.
- *
- * @return {string}
- */
 function help() {
   return [
     '',
@@ -68,11 +60,6 @@ function help() {
   ].join('\n  ') + '\n';
 }
 
-/**
- * Get the edit distance for a list containing two word.
- *
- * @param {string?} value
- */
 function getDistance(value) {
   var values = value.split(',').join(' ').split(/\s+/);
 
@@ -84,12 +71,6 @@ function getDistance(value) {
   }
 }
 
-/**
- * Get the distance for words.
- *
- * @param {Array.<string>} values
- * @return {number}
- */
 function distance(values) {
   return levenshtein(values[0], values[1], insensitive);
 }
