@@ -11,8 +11,9 @@
     "bin",
     "cli"
   ],
-  "repository": "wooorm/levenshtein-edit-distance",
-  "bugs": "https://github.com/wooorm/levenshtein-edit-distance/issues",
+  "homepage": "https://words.github.io/levenshtein-edit-distance/",
+  "repository": "words/levenshtein-edit-distance",
+  "bugs": "https://github.com/words/levenshtein-edit-distance/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"

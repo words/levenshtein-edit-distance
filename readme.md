@@ -88,13 +88,13 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/levenshtein-edit-distance.svg
+[travis-badge]: https://img.shields.io/travis/words/levenshtein-edit-distance.svg
 
-[travis]: https://travis-ci.org/wooorm/levenshtein-edit-distance
+[travis]: https://travis-ci.org/words/levenshtein-edit-distance
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/levenshtein-edit-distance.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/words/levenshtein-edit-distance.svg
 
-[codecov]: https://codecov.io/github/wooorm/levenshtein-edit-distance
+[codecov]: https://codecov.io/github/words/levenshtein-edit-distance
 
 [license]: LICENSE
 
