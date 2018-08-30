@@ -4,7 +4,7 @@ var PassThrough = require('stream').PassThrough;
 var test = require('tape');
 var execa = require('execa');
 var version = require('./package').version;
-var levenshtein = require('./');
+var levenshtein = require('.');
 
 test('api', function (t) {
   t.test('should work', function (st) {

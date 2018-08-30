@@ -2,7 +2,7 @@
 'use strict';
 
 var pack = require('./package.json');
-var levenshtein = require('./');
+var levenshtein = require('.');
 
 var argv = process.argv.slice(2);
 var insensitive = false;
