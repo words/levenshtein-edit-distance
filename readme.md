@@ -14,21 +14,21 @@ npm install levenshtein-edit-distance
 Use:
 
 ```js
-var levenshtein = require('levenshtein-edit-distance');
+var levenshtein = require('levenshtein-edit-distance')
 
-levenshtein('levenshtein', 'levenshtein'); //=> 0
-levenshtein('sitting', 'kitten'); //=> 3
-levenshtein('gumbo', 'gambol'); //=> 2
-levenshtein('saturday', 'sunday'); //=> 3
+levenshtein('levenshtein', 'levenshtein') // => 0
+levenshtein('sitting', 'kitten') // => 3
+levenshtein('gumbo', 'gambol') // => 2
+levenshtein('saturday', 'sunday') // => 3
 
 /* Case sensitive! */
-levenshtein('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE'); //=> true
+levenshtein('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE') // => true
 
 /* Insensitive: */
-levenshtein('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true); //=> true
+levenshtein('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true) // => true
 
 /* Order insensitive */
-levenshtein('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh'); //=> true
+levenshtein('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh') // => true
 ```
 
 ## CLI
