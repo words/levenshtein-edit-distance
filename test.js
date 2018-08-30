@@ -77,6 +77,8 @@ test('api', function(t) {
 
 test('cli', function(t) {
   var input = new PassThrough()
+  var helps = ['-h', '--help']
+  var versions = ['-v', '--version']
 
   t.plan(12)
 
@@ -124,12 +126,14 @@ test('cli', function(t) {
 
     input.end('sturgeon')
   })
-  ;['-h', '--help'].forEach(function(flag) {
+
+  helps.forEach(function(flag) {
     execa.stdout('./cli.js', [flag]).then(function(result) {
       t.ok(/\s+Usage: levenshtein-edit-distance/.test(result), flag)
     })
   })
-  ;['-v', '--version'].forEach(function(flag) {
+
+  versions.forEach(function(flag) {
     execa.stdout('./cli.js', [flag]).then(function(result) {
       t.equal(result, version, flag)
     })
