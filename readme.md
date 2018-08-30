@@ -96,7 +96,7 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 
 [codecov]: https://codecov.io/github/words/levenshtein-edit-distance
 
-[license]: LICENSE
+[license]: license
 
 [author]: http://wooorm.com
 
