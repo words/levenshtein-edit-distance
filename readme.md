@@ -98,8 +98,8 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 
 [license]: license
 
-[author]: http://wooorm.com
+[author]: https://wooorm.com
 
-[wiki]: http://en.wikipedia.org/wiki/Levenshtein_distance
+[wiki]: https://en.wikipedia.org/wiki/Levenshtein_distance
 
-[vlad]: http://en.wikipedia.org/wiki/Vladimir_Levenshtein
+[vlad]: https://en.wikipedia.org/wiki/Vladimir_Levenshtein
