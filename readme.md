@@ -6,17 +6,18 @@
 [![Size][size-badge]][size]
 
 [Levenshtein edit distance][wiki] (by [Vladimir Levenshtein][vlad]).
-No cruft.  Real fast.
+No cruft.
+Real fast.
 
-## API
+## Install
 
-Install:
+[npm][]:
 
-```bash
+```sh
 npm install levenshtein-edit-distance
 ```
 
-Use:
+## API
 
 ```js
 var levenshtein = require('levenshtein-edit-distance')
@@ -37,14 +38,6 @@ levenshtein('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh') // => true
 ```
 
 ## CLI
-
-Install:
-
-```sh
-npm install -g levenshtein-edit-distance
-```
-
-Use:
 
 ```txt
 Usage: levenshtein-edit-distance [options] word word
@@ -110,6 +103,8 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 [size-badge]: https://img.shields.io/bundlephobia/minzip/levenshtein-edit-distance.svg
 
 [size]: https://bundlephobia.com/result?p=levenshtein-edit-distance
+
+[npm]: https://www.npmjs.com
 
 [license]: license
 
