@@ -76,6 +76,8 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
     — C CLI
 *   [`levenshtein-rs`](https://github.com/wooorm/levenshtein-rs)
     — Rust API
+*   [`stemmer`](https://github.com/words/stemmer)
+    — Porter stemming algorithm
 *   [`lancaster-stemmer`](https://github.com/words/lancaster-stemmer)
     — Lancaster stemming algorithm
 *   [`double-metaphone`](https://github.com/words/double-metaphone)
