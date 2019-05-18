@@ -26,13 +26,13 @@ levenshtein('sitting', 'kitten') // => 3
 levenshtein('gumbo', 'gambol') // => 2
 levenshtein('saturday', 'sunday') // => 3
 
-/* Case sensitive! */
+// Case sensitive!
 levenshtein('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE') // => true
 
-/* Insensitive: */
+// Insensitive
 levenshtein('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true) // => true
 
-/* Order insensitive */
+// Order insensitive
 levenshtein('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh') // => true
 ```
 
