@@ -1,4 +1,9 @@
-# levenshtein-edit-distance [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# levenshtein-edit-distance
+
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
 
 [Levenshtein edit distance][wiki] (by [Vladimir Levenshtein][vlad]).
 No cruft.  Real fast.
@@ -88,13 +93,21 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/words/levenshtein-edit-distance.svg
+[build-badge]: https://img.shields.io/travis/words/levenshtein-edit-distance.svg
 
-[travis]: https://travis-ci.org/words/levenshtein-edit-distance
+[build]: https://travis-ci.org/words/levenshtein-edit-distance
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/words/levenshtein-edit-distance.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/words/levenshtein-edit-distance.svg
 
-[codecov]: https://codecov.io/github/words/levenshtein-edit-distance
+[coverage]: https://codecov.io/github/words/levenshtein-edit-distance
+
+[downloads-badge]: https://img.shields.io/npm/dm/levenshtein-edit-distance.svg
+
+[downloads]: https://www.npmjs.com/package/levenshtein-edit-distance
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/levenshtein-edit-distance.svg
+
+[size]: https://bundlephobia.com/result?p=levenshtein-edit-distance
 
 [license]: license
 
