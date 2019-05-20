@@ -10,6 +10,7 @@ var $reference = $inputs[1]
 var $output = document.querySelector('output')
 
 $input.addEventListener('input', oninputchange)
+$reference.addEventListener('input', oninputchange)
 
 oninputchange()
 
