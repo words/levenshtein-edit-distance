@@ -13,6 +13,10 @@
   ],
   "homepage": "https://words.github.io/levenshtein-edit-distance/",
   "repository": "words/levenshtein-edit-distance",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/wooorm"
+  },
   "bugs": "https://github.com/words/levenshtein-edit-distance/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
