@@ -1,8 +1,8 @@
 'use strict'
 
+var exec = require('child_process').exec
 var PassThrough = require('stream').PassThrough
 var test = require('tape')
-var execa = require('execa')
 var version = require('./package').version
 var levenshtein = require('.')
 
@@ -79,63 +79,83 @@ test('cli', function(t) {
   var input = new PassThrough()
   var helps = ['-h', '--help']
   var versions = ['-v', '--version']
+  var insensitive = ['-i', '--insensitive']
 
-  t.plan(12)
+  t.plan(13)
 
-  execa.stdout('./cli.js', ['sitting', 'kitten']).then(function(result) {
-    t.equal(result, '3', 'space seperated values')
-  })
-
-  execa.stdout('./cli.js', ['sitting']).then(null, function(err) {
-    t.ok(
-      /\s+Usage: levenshtein-edit-distance/.test(err.stderr),
-      'stdin (one value)'
+  exec('./cli.js sitting', function(err, stdout, stderr) {
+    t.deepEqual(
+      [
+        Boolean(err),
+        stdout,
+        /\s+Usage: levenshtein-edit-distance/.test(stderr)
+      ],
+      [true, '', true],
+      'not enough arguments'
     )
   })
 
-  execa.stdout('./cli.js', ['sitting, kitten']).then(function(result) {
-    t.equal(result, '3', 'comma- and space seperated values')
+  exec('./cli.js sitting kitten', function(err, stdout, stderr) {
+    t.deepEqual([err, stdout, stderr], [null, '3\n', ''], 'spaces')
   })
 
-  execa.stdout('./cli.js', ['A', 'a']).then(function(result) {
-    t.equal(result, '1', 'case-sensitive by default')
+  exec('./cli.js sitting,kitten', function(err, stdout, stderr) {
+    t.deepEqual([err, stdout, stderr], [null, '3\n', ''], 'commas')
   })
-  ;['-i', '--insensitive'].forEach(function(flag) {
-    execa.stdout('./cli.js', [flag, 'A', 'a']).then(function(result) {
-      t.equal(result, '0', 'optionally case-insensitive with ' + flag)
+
+  exec('./cli.js sitting, kitten', function(err, stdout, stderr) {
+    t.deepEqual([err, stdout, stderr], [null, '3\n', ''], 'commas & spaces')
+  })
+
+  exec('./cli.js a A', function(err, stdout, stderr) {
+    t.deepEqual([err, stdout, stderr], [null, '1\n', ''], 'case-sensitive')
+  })
+
+  insensitive.forEach(function(flag) {
+    exec('./cli.js a A ' + flag, function(err, stdout, stderr) {
+      t.deepEqual([err, stdout, stderr], [null, '0\n', ''], flag)
     })
   })
 
-  execa.stdout('./cli.js', {input: input}).then(function(result) {
-    t.equal(result, '6', 'stdin')
+  var subprocess = exec('./cli.js', function(err, stdout, stderr) {
+    t.deepEqual([err, stdout, stderr], [null, '6\n', ''], 'stdin')
   })
 
+  input.pipe(subprocess.stdin)
   input.write('sturgeon')
-
   setImmediate(function() {
     input.end(' urgently')
 
     input = new PassThrough()
-
-    execa('./cli.js', {input: input}).then(null, function(err) {
-      t.ok(
-        /\s+Usage: levenshtein-edit-distance/.test(err.stderr),
-        'stdin (one value)'
+    subprocess = exec('./cli.js', function(err, stdout, stderr) {
+      t.deepEqual(
+        [
+          Boolean(err),
+          stdout,
+          /\s+Usage: levenshtein-edit-distance/.test(stderr)
+        ],
+        [true, '', true],
+        'stdin (not enough arguments)'
       )
     })
 
+    input.pipe(subprocess.stdin)
     input.end('sturgeon')
   })
 
   helps.forEach(function(flag) {
-    execa.stdout('./cli.js', [flag]).then(function(result) {
-      t.ok(/\s+Usage: levenshtein-edit-distance/.test(result), flag)
+    exec('./cli.js ' + flag, function(err, stdout, stderr) {
+      t.deepEqual(
+        [err, /\sUsage: levenshtein-edit-distance/.test(stdout), stderr],
+        [null, true, ''],
+        flag
+      )
     })
   })
 
   versions.forEach(function(flag) {
-    execa.stdout('./cli.js', [flag]).then(function(result) {
-      t.equal(result, version, flag)
+    exec('./cli.js ' + flag, function(err, stdout, stderr) {
+      t.deepEqual([err, stdout, stderr], [null, version + '\n', ''], flag)
     })
   })
 })
