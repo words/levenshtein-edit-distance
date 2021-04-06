@@ -1,13 +1,11 @@
-'use strict'
-
 /* eslint-env browser */
 
-var levenshtein = require('levenshtein-edit-distance')
+import {levenshteinEditDistance} from 'levenshtein-edit-distance'
 
-var $inputs = document.querySelectorAll('input')
-var $input = $inputs[0]
-var $reference = $inputs[1]
-var $output = document.querySelector('output')
+const $inputs = document.querySelectorAll('input')
+const $input = $inputs[0]
+const $reference = $inputs[1]
+const $output = document.querySelector('output')
 
 $input.addEventListener('input', oninputchange)
 $reference.addEventListener('input', oninputchange)
@@ -15,5 +13,5 @@ $reference.addEventListener('input', oninputchange)
 oninputchange()
 
 function oninputchange() {
-  $output.textContent = levenshtein($input.value, $reference.value)
+  $output.textContent = levenshteinEditDistance($input.value, $reference.value)
 }
