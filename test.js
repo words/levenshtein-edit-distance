@@ -1,10 +1,14 @@
-'use strict'
+import {exec} from 'child_process'
+import fs from 'fs'
+import {URL} from 'url'
+import {PassThrough} from 'stream'
+import {levenshteinEditDistance as levenshtein} from './index.js'
+import test from 'tape'
 
-var exec = require('child_process').exec
-var PassThrough = require('stream').PassThrough
-var test = require('tape')
-var version = require('./package').version
-var levenshtein = require('.')
+/** @type {Object.<string, unknown>} */
+var pack = JSON.parse(
+  String(fs.readFileSync(new URL('./package.json', import.meta.url)))
+)
 
 test('api', function (t) {
   t.test('should work', function (st) {
@@ -158,13 +162,13 @@ test('cli', function (t) {
   })
 
   exec('./cli.js -v', function (error, stdout, stderr) {
-    t.deepEqual([error, stdout, stderr], [null, version + '\n', ''], '-v')
+    t.deepEqual([error, stdout, stderr], [null, pack.version + '\n', ''], '-v')
   })
 
   exec('./cli.js --version', function (error, stdout, stderr) {
     t.deepEqual(
       [error, stdout, stderr],
-      [null, version + '\n', ''],
+      [null, pack.version + '\n', ''],
       '--version'
     )
   })

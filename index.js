@@ -1,11 +1,7 @@
-'use strict'
-
-module.exports = levenshtein
-
 var cache = []
 var codes = []
 
-function levenshtein(value, other, insensitive) {
+export function levenshteinEditDistance(value, other, insensitive) {
   var length
   var lengthOther
   var code

@@ -1,8 +1,11 @@
 #!/usr/bin/env node
-'use strict'
+import fs from 'fs'
+import {URL} from 'url'
+import {levenshteinEditDistance} from './index.js'
 
-var pack = require('./package.json')
-var levenshtein = require('.')
+var pack = JSON.parse(
+  String(fs.readFileSync(new URL('./package.json', import.meta.url)))
+)
 
 var argv = process.argv.slice(2)
 var insensitive = false
@@ -19,9 +22,9 @@ if (pos !== -1) {
   insensitive = true
 }
 
-if (argv.indexOf('--help') !== -1 || argv.indexOf('-h') !== -1) {
+if (argv.includes('--help') || argv.includes('-h')) {
   console.log(help())
-} else if (argv.indexOf('--version') !== -1 || argv.indexOf('-v') !== -1) {
+} else if (argv.includes('--version') || argv.includes('-v')) {
   console.log(pack.version)
 } else if (argv.length === 0) {
   process.stdin.resume()
@@ -70,5 +73,5 @@ function getDistance(value) {
 }
 
 function distance(values) {
-  return levenshtein(values[0], values[1], insensitive)
+  return levenshteinEditDistance(values[0], values[1], insensitive)
 }

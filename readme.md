@@ -11,6 +11,9 @@ Real fast.
 
 ## Install
 
+This package is ESM only: Node 12+ is needed to use it and it must be `import`ed
+instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -19,22 +22,25 @@ npm install levenshtein-edit-distance
 
 ## API
 
-```js
-var levenshtein = require('levenshtein-edit-distance')
+This package exports the following identifiers: `levenshteinEditDistance`.
+There is no default export.
 
-levenshtein('levenshtein', 'levenshtein') // => 0
-levenshtein('sitting', 'kitten') // => 3
-levenshtein('gumbo', 'gambol') // => 2
-levenshtein('saturday', 'sunday') // => 3
+```js
+import {levenshteinEditDistance} from 'levenshtein-edit-distance'
+
+levenshteinEditDistance('levenshtein', 'levenshtein') // => 0
+levenshteinEditDistance('sitting', 'kitten') // => 3
+levenshteinEditDistance('gumbo', 'gambol') // => 2
+levenshteinEditDistance('saturday', 'sunday') // => 3
 
 // Case sensitive!
-levenshtein('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE') // => true
+levenshteinEditDistance('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE') // => true
 
 // Insensitive
-levenshtein('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true) // => true
+levenshteinEditDistance('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true) // => true
 
 // Order insensitive
-levenshtein('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh') // => true
+levenshteinEditDistance('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh') // => true
 ```
 
 ## CLI
