@@ -6,8 +6,8 @@ var test = require('tape')
 var version = require('./package').version
 var levenshtein = require('.')
 
-test('api', function(t) {
-  t.test('should work', function(st) {
+test('api', function (t) {
+  t.test('should work', function (st) {
     st.equal(levenshtein('', 'a'), 1)
     st.equal(levenshtein('a', ''), 1)
     st.equal(levenshtein('', ''), 0)
@@ -37,7 +37,7 @@ test('api', function(t) {
     st.end()
   })
 
-  t.test('Compatibility with `fast-levenshtein`', function(st) {
+  t.test('Compatibility with `fast-levenshtein`', function (st) {
     st.equal(levenshtein('a', 'b'), 1)
     st.equal(levenshtein('ab', 'ac'), 1)
     st.equal(levenshtein('ac', 'bc'), 1)
@@ -75,18 +75,15 @@ test('api', function(t) {
   t.end()
 })
 
-test('cli', function(t) {
+test('cli', function (t) {
   var input = new PassThrough()
-  var helps = ['-h', '--help']
-  var versions = ['-v', '--version']
-  var insensitive = ['-i', '--insensitive']
 
   t.plan(13)
 
-  exec('./cli.js sitting', function(err, stdout, stderr) {
+  exec('./cli.js sitting', function (error, stdout, stderr) {
     t.deepEqual(
       [
-        Boolean(err),
+        Boolean(error),
         stdout,
         /\s+Usage: levenshtein-edit-distance/.test(stderr)
       ],
@@ -95,42 +92,43 @@ test('cli', function(t) {
     )
   })
 
-  exec('./cli.js sitting kitten', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, '3\n', ''], 'spaces')
+  exec('./cli.js sitting kitten', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, '3\n', ''], 'spaces')
   })
 
-  exec('./cli.js sitting,kitten', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, '3\n', ''], 'commas')
+  exec('./cli.js sitting,kitten', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, '3\n', ''], 'commas')
   })
 
-  exec('./cli.js sitting, kitten', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, '3\n', ''], 'commas & spaces')
+  exec('./cli.js sitting, kitten', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, '3\n', ''], 'commas & spaces')
   })
 
-  exec('./cli.js a A', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, '1\n', ''], 'case-sensitive')
+  exec('./cli.js a A', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, '1\n', ''], 'case-sensitive')
   })
 
-  insensitive.forEach(function(flag) {
-    exec('./cli.js a A ' + flag, function(err, stdout, stderr) {
-      t.deepEqual([err, stdout, stderr], [null, '0\n', ''], flag)
-    })
+  exec('./cli.js a A -i', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, '0\n', ''], '-i')
+  })
+  exec('./cli.js a A --insensitive', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, '0\n', ''], '--insensitive')
   })
 
-  var subprocess = exec('./cli.js', function(err, stdout, stderr) {
-    t.deepEqual([err, stdout, stderr], [null, '6\n', ''], 'stdin')
+  var subprocess = exec('./cli.js', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, '6\n', ''], 'stdin')
   })
 
   input.pipe(subprocess.stdin)
   input.write('sturgeon')
-  setImmediate(function() {
+  setImmediate(function () {
     input.end(' urgently')
 
     input = new PassThrough()
-    subprocess = exec('./cli.js', function(err, stdout, stderr) {
+    subprocess = exec('./cli.js', function (error, stdout, stderr) {
       t.deepEqual(
         [
-          Boolean(err),
+          Boolean(error),
           stdout,
           /\s+Usage: levenshtein-edit-distance/.test(stderr)
         ],
@@ -143,19 +141,31 @@ test('cli', function(t) {
     input.end('sturgeon')
   })
 
-  helps.forEach(function(flag) {
-    exec('./cli.js ' + flag, function(err, stdout, stderr) {
-      t.deepEqual(
-        [err, /\sUsage: levenshtein-edit-distance/.test(stdout), stderr],
-        [null, true, ''],
-        flag
-      )
-    })
+  exec('./cli.js -h', function (error, stdout, stderr) {
+    t.deepEqual(
+      [error, /\sUsage: levenshtein-edit-distance/.test(stdout), stderr],
+      [null, true, ''],
+      '-h'
+    )
   })
 
-  versions.forEach(function(flag) {
-    exec('./cli.js ' + flag, function(err, stdout, stderr) {
-      t.deepEqual([err, stdout, stderr], [null, version + '\n', ''], flag)
-    })
+  exec('./cli.js --help', function (error, stdout, stderr) {
+    t.deepEqual(
+      [error, /\sUsage: levenshtein-edit-distance/.test(stdout), stderr],
+      [null, true, ''],
+      '--help'
+    )
+  })
+
+  exec('./cli.js -v', function (error, stdout, stderr) {
+    t.deepEqual([error, stdout, stderr], [null, version + '\n', ''], '-v')
+  })
+
+  exec('./cli.js --version', function (error, stdout, stderr) {
+    t.deepEqual(
+      [error, stdout, stderr],
+      [null, version + '\n', ''],
+      '--version'
+    )
   })
 })

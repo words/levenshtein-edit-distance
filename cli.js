@@ -5,16 +5,19 @@ var pack = require('./package.json')
 var levenshtein = require('.')
 
 var argv = process.argv.slice(2)
-var insensitives = ['--insensitive', '-i']
 var insensitive = false
+var pos = argv.indexOf('--insensitive')
 
-insensitives.forEach(function(flag) {
-  var pos = argv.indexOf(flag)
-  if (pos !== -1) {
-    argv.splice(pos, 1)
-    insensitive = true
-  }
-})
+if (pos !== -1) {
+  argv.splice(pos, 1)
+  insensitive = true
+}
+
+pos = argv.indexOf('-i')
+if (pos !== -1) {
+  argv.splice(pos, 1)
+  insensitive = true
+}
 
 if (argv.indexOf('--help') !== -1 || argv.indexOf('-h') !== -1) {
   console.log(help())
@@ -23,7 +26,7 @@ if (argv.indexOf('--help') !== -1 || argv.indexOf('-h') !== -1) {
 } else if (argv.length === 0) {
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
-  process.stdin.on('data', function(data) {
+  process.stdin.on('data', function (data) {
     getDistance(data.trim())
   })
 } else {
@@ -56,10 +59,7 @@ function help() {
 }
 
 function getDistance(value) {
-  var values = value
-    .split(',')
-    .join(' ')
-    .split(/\s+/)
+  var values = value.split(',').join(' ').split(/\s+/)
 
   if (values.length === 2) {
     console.log(distance(values))
