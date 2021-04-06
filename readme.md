@@ -88,9 +88,9 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/words/levenshtein-edit-distance.svg
+[build-badge]: https://github.com/words/levenshtein-edit-distance/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/words/levenshtein-edit-distance
+[build]: https://github.com/words/levenshtein-edit-distance/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/words/levenshtein-edit-distance.svg
 
