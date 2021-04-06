@@ -1,29 +1,38 @@
-var cache = []
+/** @type {Array.<number>} */
 var codes = []
+/** @type {Array.<number>} */
+var cache = []
 
+/**
+ * @param {string} value
+ * @param {string} other
+ * @param {boolean} [insensitive]
+ * @returns {number}
+ */
 export function levenshteinEditDistance(value, other, insensitive) {
-  var length
-  var lengthOther
+  /** @type {number} */
   var code
+  /** @type {number} */
   var result
+  /** @type {number} */
   var distance
+  /** @type {number} */
   var distanceOther
+  /** @type {number} */
   var index
+  /** @type {number} */
   var indexOther
 
   if (value === other) {
     return 0
   }
 
-  length = value.length
-  lengthOther = other.length
-
-  if (length === 0) {
-    return lengthOther
+  if (value.length === 0) {
+    return other.length
   }
 
-  if (lengthOther === 0) {
-    return length
+  if (other.length === 0) {
+    return value.length
   }
 
   if (insensitive) {
@@ -33,19 +42,19 @@ export function levenshteinEditDistance(value, other, insensitive) {
 
   index = 0
 
-  while (index < length) {
+  while (index < value.length) {
     codes[index] = value.charCodeAt(index)
     cache[index] = ++index
   }
 
   indexOther = 0
 
-  while (indexOther < lengthOther) {
+  while (indexOther < other.length) {
     code = other.charCodeAt(indexOther)
     result = distance = indexOther++
     index = -1
 
-    while (++index < length) {
+    while (++index < value.length) {
       distanceOther = code === codes[index] ? distance : distance + 1
       distance = cache[index]
       cache[index] = result =

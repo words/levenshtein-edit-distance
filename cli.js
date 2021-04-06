@@ -3,6 +3,7 @@ import fs from 'fs'
 import {URL} from 'url'
 import {levenshteinEditDistance} from './index.js'
 
+/** @type {Object.<string, unknown>} */
 var pack = JSON.parse(
   String(fs.readFileSync(new URL('./package.json', import.meta.url)))
 )
@@ -30,7 +31,7 @@ if (argv.includes('--help') || argv.includes('-h')) {
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
   process.stdin.on('data', function (data) {
-    getDistance(data.trim())
+    getDistance(String(data).trim())
   })
 } else {
   getDistance(argv.join(' '))
@@ -61,10 +62,14 @@ function help() {
   ].join('\n')
 }
 
+/**
+ * @param {string} value
+ */
 function getDistance(value) {
   var values = value.split(',').join(' ').split(/\s+/)
 
   if (values.length === 2) {
+    // @ts-ignore yes, the length is 2.
     console.log(distance(values))
   } else {
     process.stderr.write(help())
@@ -72,6 +77,10 @@ function getDistance(value) {
   }
 }
 
+/**
+ * @param {[string, string]} values
+ * @return {number}
+ */
 function distance(values) {
   return levenshteinEditDistance(values[0], values[1], insensitive)
 }
