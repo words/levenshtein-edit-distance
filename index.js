@@ -1,7 +1,7 @@
 /** @type {Array.<number>} */
-var codes = []
+const codes = []
 /** @type {Array.<number>} */
-var cache = []
+const cache = []
 
 /**
  * @param {string} value
@@ -10,19 +10,6 @@ var cache = []
  * @returns {number}
  */
 export function levenshteinEditDistance(value, other, insensitive) {
-  /** @type {number} */
-  var code
-  /** @type {number} */
-  var result
-  /** @type {number} */
-  var distance
-  /** @type {number} */
-  var distanceOther
-  /** @type {number} */
-  var index
-  /** @type {number} */
-  var indexOther
-
   if (value === other) {
     return 0
   }
@@ -40,24 +27,27 @@ export function levenshteinEditDistance(value, other, insensitive) {
     other = other.toLowerCase()
   }
 
-  index = 0
+  let index = 0
 
   while (index < value.length) {
     codes[index] = value.codePointAt(index)
     cache[index] = ++index
   }
 
-  indexOther = 0
+  let indexOther = 0
+  /** @type {number} */
+  let result
 
   while (indexOther < other.length) {
-    code = other.codePointAt(indexOther)
-    result = distance = indexOther++
-    index = -1
+    const code = other.codePointAt(indexOther)
+    let index = -1
+    let distance = indexOther++
+    result = distance
 
     while (++index < value.length) {
-      distanceOther = code === codes[index] ? distance : distance + 1
+      const distanceOther = code === codes[index] ? distance : distance + 1
       distance = cache[index]
-      cache[index] = result =
+      result =
         distance > result
           ? distanceOther > result
             ? result + 1
@@ -65,6 +55,7 @@ export function levenshteinEditDistance(value, other, insensitive) {
           : distanceOther > distance
           ? distance + 1
           : distanceOther
+      cache[index] = result
     }
   }
 

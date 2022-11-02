@@ -6,7 +6,7 @@ import test from 'tape'
 import {levenshteinEditDistance as levenshtein} from './index.js'
 
 /** @type {Object.<string, unknown>} */
-var pack = JSON.parse(
+const pack = JSON.parse(
   String(fs.readFileSync(new URL('package.json', import.meta.url)))
 )
 
@@ -80,7 +80,7 @@ test('api', function (t) {
 })
 
 test('cli', function (t) {
-  var input = new PassThrough()
+  let input = new PassThrough()
 
   t.plan(13)
 
@@ -119,7 +119,7 @@ test('cli', function (t) {
     t.deepEqual([error, stdout, stderr], [null, '0\n', ''], '--insensitive')
   })
 
-  var subprocess = exec('./cli.js', function (error, stdout, stderr) {
+  let subprocess = exec('./cli.js', function (error, stdout, stderr) {
     t.deepEqual([error, stdout, stderr], [null, '6\n', ''], 'stdin')
   })
 

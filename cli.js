@@ -5,13 +5,13 @@ import process from 'node:process'
 import {levenshteinEditDistance} from './index.js'
 
 /** @type {Object.<string, unknown>} */
-var pack = JSON.parse(
+const pack = JSON.parse(
   String(fs.readFileSync(new URL('package.json', import.meta.url)))
 )
 
-var argv = process.argv.slice(2)
-var insensitive = false
-var pos = argv.indexOf('--insensitive')
+const argv = process.argv.slice(2)
+let insensitive = false
+let pos = argv.indexOf('--insensitive')
 
 if (pos !== -1) {
   argv.splice(pos, 1)
@@ -67,7 +67,7 @@ function help() {
  * @param {string} value
  */
 function getDistance(value) {
-  var values = value.split(',').join(' ').split(/\s+/)
+  const values = value.split(',').join(' ').split(/\s+/)
 
   if (values.length === 2) {
     // @ts-ignore yes, the length is 2.
