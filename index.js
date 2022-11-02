@@ -1,6 +1,6 @@
-/** @type {Array.<number>} */
+/** @type {Array<number>} */
 const codes = []
-/** @type {Array.<number>} */
+/** @type {Array<number>} */
 const cache = []
 
 /**
@@ -30,7 +30,8 @@ export function levenshteinEditDistance(value, other, insensitive) {
   let index = 0
 
   while (index < value.length) {
-    codes[index] = value.codePointAt(index)
+    // eslint-disable-next-line unicorn/prefer-code-point
+    codes[index] = value.charCodeAt(index)
     cache[index] = ++index
   }
 
@@ -39,7 +40,8 @@ export function levenshteinEditDistance(value, other, insensitive) {
   let result
 
   while (indexOther < other.length) {
-    const code = other.codePointAt(indexOther)
+    // eslint-disable-next-line unicorn/prefer-code-point
+    const code = other.charCodeAt(indexOther)
     let index = -1
     let distance = indexOther++
     result = distance
@@ -59,5 +61,6 @@ export function levenshteinEditDistance(value, other, insensitive) {
     }
   }
 
+  // @ts-expect-error: always assigned.
   return result
 }

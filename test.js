@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict'
 import {exec} from 'node:child_process'
 import fs from 'node:fs'
 import {URL} from 'node:url'
@@ -123,6 +124,7 @@ test('cli', function (t) {
     t.deepEqual([error, stdout, stderr], [null, '6\n', ''], 'stdin')
   })
 
+  assert(subprocess.stdin, 'expected `stdin` on `subprocess`')
   input.pipe(subprocess.stdin)
   input.write('sturgeon')
   setImmediate(function () {
@@ -141,6 +143,7 @@ test('cli', function (t) {
       )
     })
 
+    assert(subprocess.stdin, 'expected `stdin` on `subprocess`')
     input.pipe(subprocess.stdin)
     input.end('sturgeon')
   })
