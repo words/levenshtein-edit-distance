@@ -1,7 +1,7 @@
 {
   "name": "levenshtein-edit-distance",
   "version": "3.0.0",
-  "description": "Levenshtein edit distance. No cruft. Real fast.",
+  "description": "Levenshtein edit distance",
   "license": "MIT",
   "keywords": [
     "vladimir",

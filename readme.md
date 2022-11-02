@@ -5,25 +5,60 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-[Levenshtein edit distance][wiki] (by [Vladimir Levenshtein][vlad]).
-No cruft.
-Real fast.
+[Levenshtein distance][wiki] (by [Vladimir Levenshtein][vlad]).
+
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`levenshteinEditDistance(value, other[, insensitive])`](#levenshteineditdistancevalue-other-insensitive)
+*   [CLI](#cli)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [Security](#security)
+*   [License](#license)
+
+## What is this?
+
+This package exposes a string similarity algorithm.
+That means it gets two strings (typically words), and turns it into the minimum
+number of single-character edits (insertions, deletions or substitutions)
+needed to turn one string into the other.
+
+## When should I use this?
+
+You’re probably dealing with natural language, and know you need this, if
+you’re here!
 
 ## Install
 
-This package is ESM only: Node 12+ is needed to use it and it must be `import`ed
-instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 14.14+, 16.0+), install with [npm][]:
 
 ```sh
 npm install levenshtein-edit-distance
 ```
 
-## API
+In Deno with [`esm.sh`][esmsh]:
 
-This package exports the following identifiers: `levenshteinEditDistance`.
-There is no default export.
+```js
+import {levenshteinEditDistance} from 'https://esm.sh/levenshtein-edit-distance@3'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import {levenshteinEditDistance} from 'https://esm.sh/levenshtein-edit-distance@3?bundle'
+</script>
+```
+
+## Use
 
 ```js
 import {levenshteinEditDistance} from 'levenshtein-edit-distance'
@@ -33,22 +68,46 @@ levenshteinEditDistance('sitting', 'kitten') // => 3
 levenshteinEditDistance('gumbo', 'gambol') // => 2
 levenshteinEditDistance('saturday', 'sunday') // => 3
 
-// Case sensitive!
-levenshteinEditDistance('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE') // => true
-
-// Insensitive
-levenshteinEditDistance('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true) // => true
-
-// Order insensitive
+// Insensitive to order:
 levenshteinEditDistance('aarrgh', 'aargh') === levenshtein('aargh', 'aarrgh') // => true
+
+// Sensitive to ASCII casing by default:
+levenshteinEditDistance('DwAyNE', 'DUANE') !== levenshtein('dwayne', 'DuAnE') // => true
+// Insensitive:
+levenshteinEditDistance('DwAyNE', 'DUANE', true) === levenshtein('dwayne', 'DuAnE', true) // => true
 ```
+
+## API
+
+This package exports the identifier `levenshteinEditDistance`.
+There is no default export.
+
+### `levenshteinEditDistance(value, other[, insensitive])`
+
+Levenshtein edit distance.
+
+###### `value`
+
+Primary value (`string`, required).
+
+###### `other`
+
+Other value (`string`, required).
+
+###### `insensitive`
+
+Compare insensitive to ASCII casing (`boolean`, default: `false`).
+
+##### Returns
+
+Distance between `value` and `other` (`number`).
 
 ## CLI
 
 ```txt
 Usage: levenshtein-edit-distance [options] word word
 
-Levenshtein edit distance. No cruft. Real fast.
+Levenshtein edit distance.
 
 Options:
 
@@ -67,6 +126,17 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 # 3
 ```
 
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports no additional types.
+
+## Compatibility
+
+This package is at least compatible with all maintained versions of Node.js.
+As of now, that is Node.js 14.14+ and 16.0+.
+It also works in Deno and modern browsers.
+
 ## Related
 
 *   [`levenshtein.c`](https://github.com/wooorm/levenshtein.c)
@@ -76,17 +146,26 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 *   [`levenshtein-rs`](https://github.com/wooorm/levenshtein-rs)
     — Rust API
 *   [`stemmer`](https://github.com/words/stemmer)
-    — Porter stemming algorithm
+    — porter stemming algorithm
 *   [`lancaster-stemmer`](https://github.com/words/lancaster-stemmer)
-    — Lancaster stemming algorithm
+    — lancaster stemming algorithm
 *   [`double-metaphone`](https://github.com/words/double-metaphone)
-    — Double Metaphone implementation
+    — double metaphone algorithm
 *   [`soundex-code`](https://github.com/words/soundex-code)
-    — Fast Soundex implementation
+    — soundex algorithm
 *   [`dice-coefficient`](https://github.com/words/dice-coefficient)
-    — Sørensen–Dice coefficient
+    — sørensen–dice coefficient
 *   [`syllable`](https://github.com/words/syllable)
-    — Syllable count in an English word
+    — syllable count of English words
+
+## Contribute
+
+Yes please!
+See [How to Contribute to Open Source][contribute].
+
+## Security
+
+This package is safe.
 
 ## License
 
@@ -111,6 +190,14 @@ $ echo "saturday,sunday" | levenshtein-edit-distance
 [size]: https://bundlephobia.com/result?p=levenshtein-edit-distance
 
 [npm]: https://www.npmjs.com
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[typescript]: https://www.typescriptlang.org
+
+[contribute]: https://opensource.guide/how-to-contribute/
 
 [license]: license
 

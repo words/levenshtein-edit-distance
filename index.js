@@ -4,10 +4,16 @@ const codes = []
 const cache = []
 
 /**
+ * Levenshtein edit distance.
+ *
  * @param {string} value
+ *   Primary value.
  * @param {string} other
- * @param {boolean} [insensitive]
+ *   Other value.
+ * @param {boolean} [insensitive=false]
+ *   Compare insensitive to ASCII casing.
  * @returns {number}
+ *   Distance between `value` and `other`.
  */
 export function levenshteinEditDistance(value, other, insensitive) {
   if (value === other) {
