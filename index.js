@@ -43,14 +43,14 @@ export function levenshteinEditDistance(value, other, insensitive) {
   index = 0
 
   while (index < value.length) {
-    codes[index] = value.charCodeAt(index)
+    codes[index] = value.codePointAt(index)
     cache[index] = ++index
   }
 
   indexOther = 0
 
   while (indexOther < other.length) {
-    code = other.charCodeAt(indexOther)
+    code = other.codePointAt(indexOther)
     result = distance = indexOther++
     index = -1
 
